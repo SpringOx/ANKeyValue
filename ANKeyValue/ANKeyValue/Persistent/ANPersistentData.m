@@ -59,7 +59,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 {
     ANPersistentStrategy *strategy = [self strategyForData];
     
-    NSString *path = [strategy createLocalPath:name version:version domain:domain];
+    NSString *path = [strategy localPath:name version:version domain:domain];
     ANPersistentData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     if (nil == data || ![data respondsToSelector:@selector(strategy)]) {
         data = [[[self class] alloc] init];
@@ -175,7 +175,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 - (void)clearData
 {
     [_dataLock lock];
-    NSString *path = [self.strategy getLocalDirectory:self.name domain:self.domain];
+    NSString *path = [self.strategy localDirectory:self.name domain:self.domain];
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
     [fm removeItemAtPath:path error:&error];
@@ -252,7 +252,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     [self archiveWillStart];
     _isArchiving = YES;
     
-    NSString *dataPath = [self.strategy createLocalPath:_name version:_version domain:_domain];
+    NSString *dataPath = [self.strategy localPath:_name version:_version domain:_domain];
     if (nil != dataPath) {
         NSLog(@"Persistent Data archive %@\n", dataPath);
         [NSKeyedArchiver archiveRootObject:rootObject toFile:dataPath];

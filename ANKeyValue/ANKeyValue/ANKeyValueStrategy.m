@@ -27,10 +27,10 @@
     // do nothing
 }
 
-- (NSString *)createDataBlockPath:(ANKeyValueData *)data primaryKey:(NSString *)key
+- (NSString *)dataBlockPath:(ANKeyValueData *)data primaryKey:(NSString *)key
 {
     if ([key isKindOfClass:[NSString class]] && 0 < [key length]) {
-        NSString *localDirPath = [self getLocalDirectory:data.name domain:data.domain];
+        NSString *localDirPath = [self localDirectory:data.name domain:data.domain];
         NSString *dirPath = [self getDirectory:localDirPath relativePath:@"Data"];
         if (nil != dirPath) {
             return [dirPath stringByAppendingPathComponent:[key MD5String]];

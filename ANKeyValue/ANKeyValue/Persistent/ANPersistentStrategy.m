@@ -72,13 +72,13 @@
     return dirPath;
 }
 
-- (NSString *)getLocalDirectory:(NSString *)name domain:(NSString *)domain
+- (NSString *)localDirectory:(NSString *)name domain:(NSString *)domain
 {
     NSString *relPath = [NSString stringWithFormat:@"%@/%@", domain, [name MD5String]];
     return [self getDirectory:self.rootDirectory relativePath:relPath];
 }
 
-- (NSString *)createLocalPath:(NSString *)name version:(NSString *)version domain:(NSString *)domain
+- (NSString *)localPath:(NSString *)name version:(NSString *)version domain:(NSString *)domain
 {
     if (nil == self.rootDirectory) {
         return nil;
@@ -92,7 +92,7 @@
             domain = DOMAIN_STRING_DEFAULT;
         }
         
-        NSString *dirPath = [self getLocalDirectory:name domain:domain];
+        NSString *dirPath = [self localDirectory:name domain:domain];
         if (nil != dirPath) {
             NSString *fileName = [NSString stringWithFormat:@"%@-%@", [name MD5String], version];
             return [dirPath stringByAppendingPathComponent:fileName];

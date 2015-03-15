@@ -24,9 +24,9 @@
 
 - (NSString *)getDirectory:(NSString *)rootDir relativePath:(NSString *)relPath;
 
-- (NSString *)getLocalDirectory:(NSString *)name domain:(NSString *)domain;
+- (NSString *)localDirectory:(NSString *)name domain:(NSString *)domain;
 
-- (NSString *)createLocalPath:(NSString *)name version:(NSString *)version domain:(NSString *)domain;
+- (NSString *)localPath:(NSString *)name version:(NSString *)version domain:(NSString *)domain;
 
 - (NSArray *)localPathArrayWithDomain:(NSString *)domain;
 

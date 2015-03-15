@@ -143,7 +143,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
             [_dataLock unlock];
             
             // 做好data block的归档任务，springox(20150105)
-            NSString *dataPath = [(ANKeyValueStrategy *)self.strategy createDataBlockPath:self primaryKey:(NSString *)aKey];
+            NSString *dataPath = [(ANKeyValueStrategy *)self.strategy dataBlockPath:self primaryKey:(NSString *)aKey];
             if (nil != dataPath) {
                 NSLog(@"Data block archive %@", dataPath);
                 [NSKeyedArchiver archiveRootObject:aValue toFile:dataPath];
@@ -169,7 +169,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
             NSString *tempValue = [_dataBlockCache objectForKey:aKey];
             if (nil == tempValue) {
                 NSString *tempKey = [valueStr stringByReplacingOccurrencesOfString:GlobalDataBlockArchivePathPrefix withString:@""];
-                NSString *dataPath = [(ANKeyValueStrategy *)self.strategy createDataBlockPath:self primaryKey:(NSString *)tempKey];
+                NSString *dataPath = [(ANKeyValueStrategy *)self.strategy dataBlockPath:self primaryKey:(NSString *)tempKey];
                 if (nil != dataPath) {
                     tempValue = [NSKeyedUnarchiver unarchiveObjectWithFile:dataPath];
                     if (nil != tempValue) {
@@ -206,7 +206,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
         NSString *valueStr = (NSString *)value;
         if ([valueStr hasPrefix:GlobalDataBlockArchivePathPrefix]) {
             NSString *tempKey = [valueStr stringByReplacingOccurrencesOfString:GlobalDataBlockArchivePathPrefix withString:@""];
-            NSString *dataPath = [(ANKeyValueStrategy *)self.strategy createDataBlockPath:self primaryKey:(NSString *)tempKey];
+            NSString *dataPath = [(ANKeyValueStrategy *)self.strategy dataBlockPath:self primaryKey:(NSString *)tempKey];
             if (nil != dataPath) {
                 [_removedDataPathMap setObject:dataPath forKey:aKey];
             }

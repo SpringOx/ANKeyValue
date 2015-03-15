@@ -12,6 +12,6 @@
 
 @interface ANKeyValueStrategy : ANPersistentStrategy
 
-- (NSString *)createDataBlockPath:(ANKeyValueData *)data primaryKey:(NSString *)key;
+- (NSString *)dataBlockPath:(ANKeyValueData *)data primaryKey:(NSString *)key;
 
 @end
