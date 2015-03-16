@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANKeyValueCache : NSCache
+extern NSString *const kANKeyValueCacheWillEvictObjectNotification;
+
+@interface ANKeyValueCache : NSCache<NSCacheDelegate>
 
 - (void)preloadWithDomain:(NSString *)domain;
 
 - (id)object:(NSString *)name version:(NSString *)version;
 
 - (void)setObject:(id)obj name:(NSString *)name version:(NSString *)version;
+
+- (NSString *)generateKey:(NSString *)name version:(NSString *)version;
 
 @end

@@ -12,11 +12,13 @@
 
 #define PERSISTENT_DOMAIN     @"KeyValueStorage"
 
-static ANKeyValueCache *GlobalTableCache;
+static ANKeyValueCache *GlobalDataCache;
 
 @interface ANKeyValueTable()
 {
     __strong ANKeyValueData *_keyValueData;
+    __strong NSString *_dataName;
+    __strong NSString *_dataVersion;
 }
 
 @end
@@ -32,29 +34,67 @@ static ANKeyValueCache *GlobalTableCache;
     if (![version isKindOfClass:[NSString class]] || 0 == [version length]) {
         version = @"";
     }
-    
-    ANKeyValueCache *cache = [self tableCache];
-    
-    ANKeyValueTable *table = [cache object:name version:version];
-    if (nil == table) {
-        ANKeyValueData *data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN];
-        table = [[ANKeyValueTable alloc] initWithData:data];
-        [cache setObject:table name:name version:version];
+
+    ANKeyValueCache *cache = [self dataCache];
+    ANKeyValueData *data = [cache object:name version:version];
+    if (nil == data) {
+        data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN];
+        if (nil != data) {
+            [cache setObject:data name:name version:version];
+        }
     }
-    return table;
+
+    return [[ANKeyValueTable alloc] initWithName:name version:version];
 }
 
-+ (ANKeyValueCache *)tableCache
++ (ANKeyValueCache *)dataCache
 {
-    if (nil == GlobalTableCache) {
+    if (nil == GlobalDataCache) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            GlobalTableCache = [[ANKeyValueCache alloc] init];
+            GlobalDataCache = [[ANKeyValueCache alloc] init];
+            GlobalDataCache.delegate = GlobalDataCache;
+            [GlobalDataCache preloadWithDomain:PERSISTENT_DOMAIN];
             
-            [GlobalTableCache preloadWithDomain:PERSISTENT_DOMAIN];
+            /*
+            [[NSNotificationCenter defaultCenter] addObserver:GlobalDataCache
+                                                     selector:@selector(test:)
+                                                         name:UIApplicationDidReceiveMemoryWarningNotification
+                                                       object:nil];
+             */
         });
     }
-    return GlobalTableCache;
+    return GlobalDataCache;
+}
+
+- (ANKeyValueData *)keyValueData
+{
+    if (nil != _keyValueData) {
+        return _keyValueData;
+    } else {
+        if (![_dataName isKindOfClass:[NSString class]] || 0 == [_dataName length]) {
+            return nil;
+        }
+        ANKeyValueCache *cache = [ANKeyValueTable dataCache];
+        
+        _keyValueData = [cache object:_dataName version:_dataVersion];
+        if (nil == _keyValueData) {
+            ANKeyValueData *data = [ANKeyValueData data:_dataName version:_dataVersion domain:PERSISTENT_DOMAIN];
+            if (nil != data) {
+                // 在模拟器上，启用内存memory warning功能，可能会导致setObject后cache马上触发evict Object，
+                // 所以这里刻意把_keyValueData和notification延后设置，这样，即使evict Object在这里
+                // 被同步方式提前触发，_keyValueDatay也能因为是后面set而继续可用，不会导致_keyValueData为nil时，
+                // 重新生成一个又被evict Object触发马上重新设置为nil，陷入不可用的循环，springox(20150316)
+                [cache setObject:data name:_dataName version:_dataVersion];
+                _keyValueData = data;
+            }
+        }
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(cacheWillEvictObjectNotification:)
+                                                     name:kANKeyValueCacheWillEvictObjectNotification
+                                                   object:nil];
+        return _keyValueData;
+    }
 }
 
 - (id)initWithData:(ANKeyValueData *)data
@@ -66,9 +106,27 @@ static ANKeyValueCache *GlobalTableCache;
     return self;
 }
 
+- (id)initWithName:(NSString *)name version:(NSString *)version
+{
+    self = [super init];
+    if (self) {
+        _dataName = name;
+        _dataVersion = version;
+    }
+    return self;
+}
+
 - (void)dealloc
 {
-    // do nothing
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)cacheWillEvictObjectNotification:(NSNotification *)not
+{
+    if (nil != _keyValueData && not.object == _keyValueData) {
+        _keyValueData = nil;
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
 }
 
 - (void)synchronous
@@ -79,26 +137,26 @@ static ANKeyValueCache *GlobalTableCache;
 - (void)synchronous:(BOOL)atomically
 {
     if (atomically) {
-        [_keyValueData setNeedToArchive];
+        [[self keyValueData] setNeedToArchive];
     } else {
-        [_keyValueData syncArchive];
+        [[self keyValueData] syncArchive];
     }
 }
 
 - (BOOL)isArchiving
 {
-    return [_keyValueData isArchiving] || [_keyValueData isWillArchive];
+    return [[self keyValueData] isArchiving] || [[self keyValueData] isWillArchive];
 }
 
 - (void)clear
 {
-    [_keyValueData clearData];
+    [[self keyValueData] clearData];
 }
 
 - (void)setInt:(int)value withKey:(id <NSCopying>)key
 {
     NSNumber *intNum = [NSNumber numberWithInt:value];
-    [_keyValueData setValue:intNum withKey:key];
+    [[self keyValueData] setValue:intNum withKey:key];
     
     [self synchronous];
 }
@@ -106,7 +164,7 @@ static ANKeyValueCache *GlobalTableCache;
 - (void)setInteger:(NSInteger)value withKey:(id <NSCopying>)key
 {
     NSNumber *integerNum = [NSNumber numberWithInteger:value];
-    [_keyValueData setValue:integerNum withKey:key];
+    [[self keyValueData] setValue:integerNum withKey:key];
     
     [self synchronous];
 }
@@ -114,7 +172,7 @@ static ANKeyValueCache *GlobalTableCache;
 - (void)setFloat:(float)value withKey:(id <NSCopying>)key
 {
     NSNumber *floatNum = [NSNumber numberWithFloat:value];
-    [_keyValueData setValue:floatNum withKey:key];
+    [[self keyValueData] setValue:floatNum withKey:key];
     
     [self synchronous];
 }
@@ -122,7 +180,7 @@ static ANKeyValueCache *GlobalTableCache;
 - (void)setDouble:(double)value withKey:(id <NSCopying>)key
 {
     NSNumber *doubleNum = [NSNumber numberWithDouble:value];
-    [_keyValueData setValue:doubleNum withKey:key];
+    [[self keyValueData] setValue:doubleNum withKey:key];
     
     [self synchronous];
 }
@@ -130,21 +188,21 @@ static ANKeyValueCache *GlobalTableCache;
 - (void)setBool:(BOOL)value withKey:(id <NSCopying>)key
 {
     NSNumber *boolNum = [NSNumber numberWithBool:value];
-    [_keyValueData setValue:boolNum withKey:key];
+    [[self keyValueData] setValue:boolNum withKey:key];
     
     [self synchronous];
 }
 
 - (void)setValue:(id <NSCoding, ANKeyValue>)value withKey:(id <NSCopying>)key
 {
-    [_keyValueData setValue:value withKey:key];
+    [[self keyValueData] setValue:value withKey:key];
     
     [self synchronous];
 }
 
 - (int)intWithKey:(id <NSCopying>)key
 {
-    NSNumber *value = [_keyValueData valueWithKey:key];
+    NSNumber *value = [[self keyValueData] valueWithKey:key];
     if ([value respondsToSelector:@selector(intValue)]) {
         return [value intValue];
     }
@@ -153,7 +211,7 @@ static ANKeyValueCache *GlobalTableCache;
 
 - (NSInteger)integerWithKey:(id <NSCopying>)key
 {
-    NSNumber *value = [_keyValueData valueWithKey:key];
+    NSNumber *value = [[self keyValueData] valueWithKey:key];
     if ([value respondsToSelector:@selector(integerValue)]) {
         return [value integerValue];
     }
@@ -162,7 +220,7 @@ static ANKeyValueCache *GlobalTableCache;
 
 - (float)floatWithKey:(id <NSCopying>)key
 {
-    NSNumber *value = [_keyValueData valueWithKey:key];
+    NSNumber *value = [[self keyValueData] valueWithKey:key];
     if ([value respondsToSelector:@selector(floatValue)]) {
         return [value floatValue];
     }
@@ -171,7 +229,7 @@ static ANKeyValueCache *GlobalTableCache;
 
 - (double)doubleWithKey:(id <NSCopying>)key
 {
-    NSNumber *value = [_keyValueData valueWithKey:key];
+    NSNumber *value = [[self keyValueData] valueWithKey:key];
     if ([value respondsToSelector:@selector(doubleValue)]) {
         return [value doubleValue];
     }
@@ -180,22 +238,22 @@ static ANKeyValueCache *GlobalTableCache;
 
 - (id)valueWithKey:(id <NSCopying>)key
 {
-    return [_keyValueData valueWithKey:key];
+    return [[self keyValueData] valueWithKey:key];
 }
 
 - (NSArray *)allKeys
 {
-    return [_keyValueData allKeys];
+    return [[self keyValueData] allKeys];
 }
 
 - (NSArray *)allValues
 {
-    return [_keyValueData allValues];
+    return [[self keyValueData] allValues];
 }
 
 - (void)removeValueWithKey:(id <NSCopying>)key
 {
-    [_keyValueData removeValueWithKey:key];
+    [[self keyValueData] removeValueWithKey:key];
     
     [self synchronous];
 }

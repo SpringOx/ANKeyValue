@@ -7,6 +7,7 @@
 //
 
 #import "ANKeyValueData.h"
+#import "ANKeyValueCache.h"
 #import "ANKeyValueStrategy.h"
 
 NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";

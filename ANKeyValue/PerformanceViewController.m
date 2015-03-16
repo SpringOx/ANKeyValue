@@ -122,6 +122,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
             
             NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
             ANKeyValueTable *table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+            [table clear];
             [tableArr addObject:table];
             
         } while (10 > ++num);

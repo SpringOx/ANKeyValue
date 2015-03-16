@@ -9,15 +9,15 @@
 #import "ANKeyValueCache.h"
 #import "ANKeyValueTable.h"
 
+NSString *const kANKeyValueCacheWillEvictObjectNotification = @"kANKeyValueCacheWillEvictObjectNotification";
+
 @implementation ANKeyValueCache
 
 - (void)preloadWithDomain:(NSString *)domain
 {
     [ANKeyValueData datasWithDomain:domain dataBlock:^(id data, NSUInteger idx, BOOL *stop) {
-        ANKeyValueData *keyData = (ANKeyValueData *)data;
-        ANKeyValueTable *table = [[ANKeyValueTable alloc] initWithData:keyData];
-        
-        [self setObject:table name:keyData.name version:keyData.version];
+        ANKeyValueData *kvData = (ANKeyValueData *)data;
+        [self setObject:kvData name:kvData.name version:kvData.version];
     }];
 }
 
@@ -27,9 +27,11 @@
         return nil;
     }
     
-    NSString *tempVersion = nil!=version ? version : @"";
-    NSString *key = [NSString stringWithFormat:@"%@-%@", name, tempVersion];
-    return [self objectForKey:key];
+    NSString *key = [self generateKey:name version:version];
+    if (nil != key) {
+        return [self objectForKey:key];
+    }
+    return nil;
 }
 
 - (void)setObject:(id)obj name:(NSString *)name version:(NSString *)version
@@ -38,9 +40,38 @@
         return;
     }
     
-    NSString *tempVersion = nil!=version ? version : @"";
-    NSString *key = [NSString stringWithFormat:@"%@-%@", name, tempVersion];
-    [self setObject:obj forKey:key];
+    NSString *key = [self generateKey:name version:version];
+    if (nil != obj && nil != key) {
+        [self setObject:obj forKey:key];
+    }
 }
+
+- (NSString *)generateKey:(NSString *)name version:(NSString *)version
+{
+    if (![name isKindOfClass:[NSString class]] || 0 == [name length]) {
+        return nil;
+    }
+    
+    if (![version isKindOfClass:[NSString class]] || 0 == [version length]) {
+        return [NSString  stringWithFormat:@"%@", name];
+    }
+    return [NSString stringWithFormat:@"%@-%@", name, version];
+}
+
+#pragma mark - NSCacheDelegate
+
+- (void)cache:(NSCache *)cache willEvictObject:(id)obj
+{
+    NSLog(@"KeyValue Cache will evict obj %zd\n", obj);
+    // 对外的通知间接使用 obj 作为 notification的sender, springox(20150316)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kANKeyValueCacheWillEvictObjectNotification object:obj];
+}
+
+/*
+- (void)test:(NSNotification *)not
+{
+    [self removeAllObjects];
+}
+ */
 
 @end
