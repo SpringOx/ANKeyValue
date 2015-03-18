@@ -147,15 +147,23 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (void)archiveNow
 {
+    // _archiveTimer会影响self的计数，因此先自己做好保护，springox(20150318)
+    __strong ANPersistentData *strongSelf = self;
+    
     [_dataLock lock];
     if (nil != _archiveTimer) {
         [self syncArchive];
     }
     [_dataLock unlock];
+    
+    strongSelf = nil;
 }
 
 - (void)syncArchive
 {
+    // _archiveTimer会影响self的计数，因此先自己做好保护，springox(20150318)
+    __strong ANPersistentData *strongSelf = self;
+    
     [_dataLock lock];
     [_archiveTimer invalidate];
     @autoreleasepool {
@@ -163,6 +171,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     }
     _archiveTimer = nil;
     [_dataLock unlock];
+    
+    strongSelf = nil;
 }
 
 - (BOOL)isWillArchive
@@ -183,6 +193,9 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (void)clearData
 {
+    // _archiveTimer会影响self的计数，因此先自己做好保护，springox(20150318)
+    __strong ANPersistentData *strongSelf = self;
+    
     [_dataLock lock];
     NSString *path = [self.strategy localDirectory:self.name domain:self.domain];
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -196,6 +209,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     
     [self syncArchive];
     [_dataLock unlock];
+    
+    strongSelf = nil;
 }
 
 - (void)archiveWillStart
@@ -212,11 +227,16 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (void)archiveTimerOperation
 {
+    // _archiveTimer会影响self的计数，因此先自己做好保护，springox(20150318)
+    __strong ANPersistentData *strongSelf = self;
+    
     [_dataLock lock];
     [_archiveTimer invalidate];
     [self archiveOperation:self];
     _archiveTimer = nil;
     [_dataLock unlock];
+    
+    strongSelf = nil;
 }
 
 - (void)archiveOperation:(id)rootObject

@@ -36,6 +36,8 @@ NSString *const kANKeyValueCacheWillEvictObjectNotification = @"kANKeyValueCache
 
 - (void)setObject:(id)obj name:(NSString *)name version:(NSString *)version
 {
+    return;
+    
     if (![name isKindOfClass:[NSString class]] || 0 == [name length]) {
         return;
     }
