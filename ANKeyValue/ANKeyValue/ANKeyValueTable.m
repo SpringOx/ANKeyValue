@@ -124,6 +124,7 @@ static ANKeyValueCache *GlobalDataCache;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_keyValueData archiveNow];
 }
 
 - (void)cacheWillEvictObjectNotification:(NSNotification *)not

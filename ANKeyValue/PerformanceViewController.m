@@ -24,6 +24,9 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 }
 
 @interface PerformanceViewController ()
+{
+    __strong NSMutableDictionary *_tableDict;
+}
 
 @end
 
@@ -32,6 +35,8 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    _tableDict = [NSMutableDictionary dictionary];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,7 +60,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     do {
         
         NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
-        ANKeyValueTable *table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+        ANKeyValueTable *table = [_tableDict objectForKey:key];
+        if (nil == table) {
+            table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+            [_tableDict setObject:table forKey:key];
+        }
         [table clear];
         
     } while (10 > ++num);
@@ -87,7 +96,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     do {
         
         NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
-        ANKeyValueTable *table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+        ANKeyValueTable *table = [_tableDict objectForKey:key];
+        if (nil == table) {
+            table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+            [_tableDict setObject:table forKey:key];
+        }
         [table clear];
         
     } while (10 > ++num);
@@ -121,7 +134,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         do {
             
             NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
-            ANKeyValueTable *table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+            ANKeyValueTable *table = [_tableDict objectForKey:key];
+            if (nil == table) {
+                table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+                [_tableDict setObject:table forKey:key];
+            }
             [table clear];
             [tableArr addObject:table];
             
@@ -186,7 +203,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         do {
             
             NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
-            ANKeyValueTable *table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+            ANKeyValueTable *table = [_tableDict objectForKey:key];
+            if (nil == table) {
+                table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+                [_tableDict setObject:table forKey:key];
+            }
             [tableArr addObject:table];
             
         } while (10 > ++num);
