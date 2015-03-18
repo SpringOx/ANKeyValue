@@ -82,6 +82,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self archiveNow];
 }
 
 - (id)init
@@ -144,15 +145,23 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     [_dataLock unlock];
 }
 
+- (void)archiveNow
+{
+    [_dataLock lock];
+    if (nil != _archiveTimer) {
+        [self syncArchive];
+    }
+    [_dataLock unlock];
+}
+
 - (void)syncArchive
 {
     [_dataLock lock];
     [_archiveTimer invalidate];
-    _archiveTimer = nil;
-    
     @autoreleasepool {
         [self archive:self];
     }
+    _archiveTimer = nil;
     [_dataLock unlock];
 }
 
@@ -199,15 +208,14 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     // do nothing
 }
 
-#pragma Private Method
+#pragma mark - Private Method
 
 - (void)archiveTimerOperation
 {
     [_dataLock lock];
     [_archiveTimer invalidate];
-    _archiveTimer = nil;
-    
     [self archiveOperation:self];
+    _archiveTimer = nil;
     [_dataLock unlock];
 }
 
@@ -266,11 +274,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (void)applicationDidEnterBackground:(NSNotification *)not
 {
-    [_dataLock lock];
-    if (nil != _archiveTimer) {
-        [self syncArchive];
-    }
-    [_dataLock unlock];
+    [self archiveNow];
 }
 
 @end

@@ -37,6 +37,8 @@
 
 - (void)setNeedToArchive;
 
+- (void)archiveNow;
+
 - (void)syncArchive;
 
 - (BOOL)isWillArchive;
