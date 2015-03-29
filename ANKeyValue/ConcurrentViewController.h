@@ -13,5 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *thread1Label;
 @property (weak, nonatomic) IBOutlet UILabel *thread2Label;
 @property (weak, nonatomic) IBOutlet UILabel *thread3Label;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
+
+- (IBAction)didPressStartButtonAction:(id)sender;
 
 @end

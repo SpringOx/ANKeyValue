@@ -24,17 +24,9 @@
     
     _tableDict = [NSMutableDictionary dictionary];
     
-    [NSThread detachNewThreadSelector:@selector(subThreadSelector1:)
-                             toTarget:self
-                           withObject:nil];
-    
-    [NSThread detachNewThreadSelector:@selector(subThreadSelector2:)
-                             toTarget:self
-                           withObject:nil];
-    
-    [NSThread detachNewThreadSelector:@selector(subThreadSelector3:)
-                             toTarget:self
-                           withObject:nil];
+    _thread1Label.text = @"Thread 1";
+    _thread2Label.text = @"Thread 2";
+    _thread3Label.text = @"Thread 3";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,6 +43,20 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)didPressStartButtonAction:(id)sender {
+    [NSThread detachNewThreadSelector:@selector(subThreadSelector1:)
+                             toTarget:self
+                           withObject:nil];
+    
+    [NSThread detachNewThreadSelector:@selector(subThreadSelector2:)
+                             toTarget:self
+                           withObject:nil];
+    
+    [NSThread detachNewThreadSelector:@selector(subThreadSelector3:)
+                             toTarget:self
+                           withObject:nil];
+}
 
 - (void)subThreadSelector1:(id)object
 {
