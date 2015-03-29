@@ -126,49 +126,6 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [alert show];
 }
 
-- (void)executeSetOperation:(int)type
-{
-    @autoreleasepool {
-        NSMutableArray *tableArr = [NSMutableArray array];
-        int num = 0;
-        do {
-            
-            NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
-            ANKeyValueTable *table = [_tableDict objectForKey:key];
-            if (nil == table) {
-                table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
-                [_tableDict setObject:table forKey:key];
-            }
-            [table clear];
-            [tableArr addObject:table];
-            
-        } while (10 > ++num);
-        
-        NSInteger total = 10000;
-        NSInteger count = total;
-        while (count) {
-            
-            for (ANKeyValueTable *t in tableArr) {
-                int randNum = arc4random();
-                NSString *key = [NSString stringWithFormat:@"Key-%d", randNum];
-                
-                if (0 == type) {
-                    
-                    [t setInt:randNum withKey:key];
-                
-                } else {
-                
-                    [t setValue:@"ABCDEFGHIJKLMNOPQRSTVUWXYZ" withKey:key];
-                    
-                }
-                
-            }
-            
-            count--;
-        }
-    }
-}
-
 - (IBAction)didPressGetOperationButtonAction:(id)sender {
     
     [self executeSetOperation:1];
@@ -194,6 +151,49 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [alert show];
 }
 
+- (void)executeSetOperation:(int)type
+{
+    @autoreleasepool {
+        NSMutableArray *tableArr = [NSMutableArray array];
+        int num = 0;
+        do {
+            
+            NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
+            ANKeyValueTable *table = [_tableDict objectForKey:key];
+            if (nil == table) {
+                table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+                [_tableDict setObject:table forKey:key];
+            }
+            [tableArr addObject:table];
+            
+        } while (10 > ++num);
+        
+        NSInteger total = 10000;
+        NSInteger count = total;
+        while (count) {
+            
+            for (ANKeyValueTable *t in tableArr) {
+                //int randNum = arc4random();
+                int randNum = (int)count;
+                NSString *key = [NSString stringWithFormat:@"Key-%d", randNum];
+                
+                if (0 == type) {
+                    
+                    [t setInt:randNum withKey:key];
+                
+                } else {
+                
+                    [t setValue:@"ABCDEFGHIJKLMNOPQRSTVUWXYZ" withKey:key];
+                    
+                }
+                
+            }
+            
+            count--;
+        }
+    }
+}
+
 - (void)executeGetOperation
 {
     @autoreleasepool {
@@ -217,7 +217,8 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         while (count) {
             
             for (ANKeyValueTable *t in tableArr) {
-                int randNum = arc4random();
+                //int randNum = arc4random();
+                int randNum = (int)count;
                 NSString *key = [NSString stringWithFormat:@"Key-%d", randNum];
                 NSString *value = [t valueWithKey:key];
                 if (nil != value) {

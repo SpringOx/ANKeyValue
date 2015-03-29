@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetDemoViewController">
@@ -29,6 +29,7 @@
                 <constraint firstItem="OmD-nY-ijB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nzD-SN-DnR"/>
                 <constraint firstAttribute="trailing" secondItem="OmD-nY-ijB" secondAttribute="trailing" id="sE3-eh-LKT"/>
             </constraints>
+            <point key="canvasLocation" x="308" y="183"/>
         </view>
     </objects>
 </document>

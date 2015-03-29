@@ -10,6 +10,7 @@
 #import "ANKeyValueTable.h"
 #import "SetDemoViewController.h"
 #import "PerformanceViewController.h"
+#import "ConcurrentViewController.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -67,7 +68,10 @@
         viewCtl.title = cell.textLabel.text;
         [self.navigationController pushViewController:viewCtl animated:YES];
     } else if (2 == indexPath.row) {
-//        textCell.textLabel.text = @"Concurrent";
+        ConcurrentViewController *viewCtl = [[ConcurrentViewController alloc] initWithNibName:nil bundle:nil];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        viewCtl.title = cell.textLabel.text;
+        [self.navigationController pushViewController:viewCtl animated:YES];
     }
     
     [_tableView deselectRowAtIndexPath:indexPath animated:YES];
