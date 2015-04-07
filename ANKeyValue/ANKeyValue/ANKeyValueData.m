@@ -22,9 +22,9 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 
 @implementation ANKeyValueData
 
-+ (NSArray *)datasWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block
++ (NSArray *)dataWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block
 {
-    NSArray *datas = [super datasWithDomain:domain dataBlock:^(id data, NSUInteger idx, BOOL *stop){
+    NSArray *datas = [super dataWithDomain:domain dataBlock:^(id data, NSUInteger idx, BOOL *stop){
         // 容错处理，确保key-value的容器ready，springox(20141225)
         if ([data respondsToSelector:@selector(keyValueMap)]) {
             ANKeyValueData *kvData = (ANKeyValueData *)data;

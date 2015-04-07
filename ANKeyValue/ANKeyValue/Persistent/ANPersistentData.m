@@ -24,7 +24,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 @implementation ANPersistentData
 
-+ (NSArray *)datasWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block
++ (NSArray *)dataWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block
 {
     ANPersistentStrategy *strategy = [self strategyForData];
     

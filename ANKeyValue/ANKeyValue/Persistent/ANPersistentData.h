@@ -29,7 +29,7 @@
 
 @property (nonatomic, strong) ANPersistentStrategy *strategy;
 
-+ (NSArray *)datasWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block;
++ (NSArray *)dataWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block;
 
 + (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain;
 

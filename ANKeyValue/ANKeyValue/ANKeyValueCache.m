@@ -15,7 +15,7 @@ NSString *const kANKeyValueCacheWillEvictObjectNotification = @"kANKeyValueCache
 
 - (void)preloadWithDomain:(NSString *)domain
 {
-    [ANKeyValueData datasWithDomain:domain dataBlock:^(id data, NSUInteger idx, BOOL *stop) {
+    [ANKeyValueData dataWithDomain:domain dataBlock:^(id data, NSUInteger idx, BOOL *stop) {
         ANKeyValueData *kvData = (ANKeyValueData *)data;
         [self setObject:kvData name:kvData.name version:kvData.version];
     }];
