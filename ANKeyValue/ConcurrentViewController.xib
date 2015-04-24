@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConcurrentViewController">
@@ -24,12 +24,6 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3G-pl-Iop">
-                    <rect key="frame" x="191" y="249" width="218" height="40"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0iI-Yz-V1X">
                     <rect key="frame" x="191" y="343" width="218" height="40"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -45,6 +39,12 @@
                         <action selector="didPressStartButtonAction:" destination="-1" eventType="touchUpInside" id="gZg-zg-qmf"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3G-pl-Iop">
+                    <rect key="frame" x="191" y="249" width="218" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -55,13 +55,13 @@
                 <constraint firstAttribute="trailing" secondItem="oCf-Ny-Q1c" secondAttribute="trailing" constant="101" id="Agh-c4-Qlg"/>
                 <constraint firstItem="oCf-Ny-Q1c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="101" id="Bo3-Wx-nbX"/>
                 <constraint firstItem="hqh-1q-Yrf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="155" id="E4v-Lc-pKv"/>
-                <constraint firstItem="0iI-Yz-V1X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="90" id="QcU-cz-geX"/>
-                <constraint firstItem="hqh-1q-Yrf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="90" id="Qv4-kR-AEq"/>
-                <constraint firstAttribute="trailing" secondItem="0iI-Yz-V1X" secondAttribute="trailing" constant="90" id="REG-Tq-hpG"/>
+                <constraint firstItem="0iI-Yz-V1X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="QcU-cz-geX"/>
+                <constraint firstItem="hqh-1q-Yrf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="Qv4-kR-AEq"/>
+                <constraint firstAttribute="trailing" secondItem="0iI-Yz-V1X" secondAttribute="trailing" constant="50" id="REG-Tq-hpG"/>
                 <constraint firstItem="P3G-pl-Iop" firstAttribute="top" secondItem="hqh-1q-Yrf" secondAttribute="bottom" constant="54" id="XLI-Pe-yxI"/>
-                <constraint firstAttribute="trailing" secondItem="hqh-1q-Yrf" secondAttribute="trailing" constant="90" id="b5C-3p-TwP"/>
-                <constraint firstAttribute="trailing" secondItem="P3G-pl-Iop" secondAttribute="trailing" constant="90" id="id2-Ia-oOQ"/>
-                <constraint firstItem="P3G-pl-Iop" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="90" id="oJZ-tb-1fM"/>
+                <constraint firstAttribute="trailing" secondItem="hqh-1q-Yrf" secondAttribute="trailing" constant="50" id="b5C-3p-TwP"/>
+                <constraint firstAttribute="trailing" secondItem="P3G-pl-Iop" secondAttribute="trailing" constant="50" id="id2-Ia-oOQ"/>
+                <constraint firstItem="P3G-pl-Iop" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="oJZ-tb-1fM"/>
                 <constraint firstItem="P3G-pl-Iop" firstAttribute="top" secondItem="hqh-1q-Yrf" secondAttribute="bottom" constant="54" id="oyi-fk-mc7"/>
                 <constraint firstItem="oCf-Ny-Q1c" firstAttribute="top" secondItem="0iI-Yz-V1X" secondAttribute="bottom" constant="54" id="pbZ-oL-vPG"/>
             </constraints>

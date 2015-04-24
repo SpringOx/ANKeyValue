@@ -22,7 +22,9 @@
 
 - (BOOL)shouldArchive:(ANPersistentData *)data name:(NSString *)name;
 
-- (NSString *)getDirectory:(NSString *)rootDir relativePath:(NSString *)relPath;
+- (NSString *)localDirectory:(NSString *)rootDir relativePath:(NSString *)relPath;
+
+- (NSString *)localDirectoryWithRelativePath:(NSString *)relPath;
 
 - (NSString *)localDirectory:(NSString *)name domain:(NSString *)domain;
 

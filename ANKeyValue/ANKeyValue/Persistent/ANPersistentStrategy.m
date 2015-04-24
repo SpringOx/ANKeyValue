@@ -52,7 +52,7 @@
     return YES;
 }
 
-- (NSString *)getDirectory:(NSString *)rootDir relativePath:(NSString *)relPath
+- (NSString *)localDirectory:(NSString *)rootDir relativePath:(NSString *)relPath
 {
     if (![rootDir isKindOfClass:[NSString class]] || 0 == [rootDir length]) {
         return nil;
@@ -72,10 +72,15 @@
     return dirPath;
 }
 
+- (NSString *)localDirectoryWithRelativePath:(NSString *)relPath
+{
+    return [self localDirectory:self.rootDirectory relativePath:relPath];
+}
+
 - (NSString *)localDirectory:(NSString *)name domain:(NSString *)domain
 {
     NSString *relPath = [NSString stringWithFormat:@"%@/%@", domain, [name MD5String]];
-    return [self getDirectory:self.rootDirectory relativePath:relPath];
+    return [self localDirectoryWithRelativePath:relPath];
 }
 
 - (NSString *)localPath:(NSString *)name version:(NSString *)version domain:(NSString *)domain
@@ -112,7 +117,7 @@
     }
     
     NSString *relPath = domain;
-    NSString *dirPath = [self getDirectory:self.rootDirectory relativePath:relPath];
+    NSString *dirPath = [self localDirectoryWithRelativePath:relPath];
     NSFileManager *fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:dirPath]) {
         return [NSArray array];

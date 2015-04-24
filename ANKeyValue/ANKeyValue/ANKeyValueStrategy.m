@@ -31,9 +31,9 @@
 {
     if ([key isKindOfClass:[NSString class]] && 0 < [key length]) {
         NSString *localDirPath = [self localDirectory:data.name domain:data.domain];
-        NSString *dirPath = [self getDirectory:localDirPath relativePath:@"Data"];
-        if (nil != dirPath) {
-            return [dirPath stringByAppendingPathComponent:[key MD5String]];
+        NSString *blockDirPath = [self localDirectory:localDirPath relativePath:@"Data"];
+        if (nil != blockDirPath) {
+            return [blockDirPath stringByAppendingPathComponent:[key MD5String]];
         }
     }
     return nil;
