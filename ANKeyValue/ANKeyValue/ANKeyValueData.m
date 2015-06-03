@@ -14,6 +14,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 
 @interface ANKeyValueData()
 {
+@private
     __strong NSCache *_dataBlockCache;
     __strong NSMutableDictionary *_removedDataPathMap;
 }
@@ -22,26 +23,9 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 
 @implementation ANKeyValueData
 
-+ (NSArray *)dataWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block
++ (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain level:(ANPersistentLevel)level
 {
-    NSArray *datas = [super dataWithDomain:domain dataBlock:^(id data, NSUInteger idx, BOOL *stop){
-        // 容错处理，确保key-value的容器ready，springox(20141225)
-        if ([data respondsToSelector:@selector(keyValueMap)]) {
-            ANKeyValueData *kvData = (ANKeyValueData *)data;
-            if (nil == kvData.keyValueMap) {
-                kvData.keyValueMap = [NSMutableDictionary dictionary];
-            }
-            block(data, idx, stop);
-        } else {
-            *stop = YES;
-        }
-    }];
-    return datas;
-}
-
-+ (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain
-{
-    id data = [super data:name version:version domain:domain];
+    id data = [super data:name version:version domain:domain level:level];
     // 容错处理，确保key-value的容器ready，springox(20141225)
     if ([data respondsToSelector:@selector(keyValueMap)]) {
         ANKeyValueData *kvData = (ANKeyValueData *)data;
@@ -53,9 +37,9 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
     return nil;
 }
 
-+ (id)strategyForData
++ (id)strategy:(ANPersistentLevel)level
 {
-    return [[ANKeyValueStrategy alloc] init];
+    return [[ANKeyValueStrategy alloc] initWithLevel:level];
 }
 
 - (id)init
@@ -162,7 +146,6 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 {
     [_dataLock lock];
     id value = [_keyValueMap objectForKey:aKey];
-    
     // 判断是否有data block，springox(20150105)
     if ([value isKindOfClass:[NSString class]]) {
         NSString *valueStr = (NSString *)value;

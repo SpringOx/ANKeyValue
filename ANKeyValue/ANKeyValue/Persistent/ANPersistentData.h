@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-
-@class ANPersistentStrategy;
+#import "ANPersistentStrategy.h"
 
 @interface ANPersistentData : NSObject<NSCoding, NSCopying>
 {
@@ -29,11 +28,9 @@
 
 @property (nonatomic, strong) ANPersistentStrategy *strategy;
 
-+ (NSArray *)dataWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block;
++ (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain level:(ANPersistentLevel)level;
 
-+ (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain;
-
-+ (id)strategyForData;
++ (id)strategy:(ANPersistentLevel)level;
 
 - (void)setNeedToArchive;
 

@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5454CA241A57DE4B00FBE041 /* NSString+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA231A57DE4B00FBE041 /* NSString+ANKeyValue.m */; };
-		5454CA251A57DE4B00FBE041 /* NSString+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA231A57DE4B00FBE041 /* NSString+ANKeyValue.m */; };
-		5454CA281A57DEE500FBE041 /* NSData+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA271A57DEE500FBE041 /* NSData+ANKeyValue.m */; };
-		5454CA291A57DEE500FBE041 /* NSData+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA271A57DEE500FBE041 /* NSData+ANKeyValue.m */; };
 		5454CA441A5A5C3B00FBE041 /* ANPersistentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA411A5A5C3B00FBE041 /* ANPersistentData.m */; };
 		5454CA451A5A5C3B00FBE041 /* ANPersistentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA411A5A5C3B00FBE041 /* ANPersistentData.m */; };
 		5454CA461A5A5C3B00FBE041 /* ANPersistentStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA431A5A5C3B00FBE041 /* ANPersistentStrategy.m */; };
 		5454CA471A5A5C3B00FBE041 /* ANPersistentStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA431A5A5C3B00FBE041 /* ANPersistentStrategy.m */; };
 		5454CA4A1A5C354100FBE041 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 5454CA491A5C354100FBE041 /* test.png */; };
 		5454CA4B1A5C354100FBE041 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 5454CA491A5C354100FBE041 /* test.png */; };
-		5454CA4E1A5C35DF00FBE041 /* UIImage+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA4D1A5C35DF00FBE041 /* UIImage+ANKeyValue.m */; };
-		5454CA4F1A5C35DF00FBE041 /* UIImage+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA4D1A5C35DF00FBE041 /* UIImage+ANKeyValue.m */; };
 		5454CA531A62DA2400FBE041 /* SetDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA511A62DA2400FBE041 /* SetDemoViewController.m */; };
 		5454CA541A62DA2400FBE041 /* SetDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5454CA521A62DA2400FBE041 /* SetDemoViewController.xib */; };
 		54747A1D1AC0DB2D006B1404 /* ConcurrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54747A1B1AC0DB2D006B1404 /* ConcurrentViewController.m */; };
 		54747A1E1AC0DB2D006B1404 /* ConcurrentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54747A1C1AC0DB2D006B1404 /* ConcurrentViewController.xib */; };
+		54854DC91B121E870089A443 /* NSData+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 54854DC41B121E870089A443 /* NSData+ANKeyValue.m */; };
+		54854DCA1B121E870089A443 /* NSData+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 54854DC41B121E870089A443 /* NSData+ANKeyValue.m */; };
+		54854DCB1B121E870089A443 /* NSString+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 54854DC61B121E870089A443 /* NSString+ANKeyValue.m */; };
+		54854DCC1B121E870089A443 /* NSString+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 54854DC61B121E870089A443 /* NSString+ANKeyValue.m */; };
+		54854DCD1B121E870089A443 /* UIImage+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 54854DC81B121E870089A443 /* UIImage+ANKeyValue.m */; };
+		54854DCE1B121E870089A443 /* UIImage+ANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 54854DC81B121E870089A443 /* UIImage+ANKeyValue.m */; };
 		54927B771A72B01800E00047 /* PerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54927B751A72B01800E00047 /* PerformanceViewController.m */; };
 		54927B791A72B01800E00047 /* PerformanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54927B761A72B01800E00047 /* PerformanceViewController.xib */; };
 		54D21B301A4A83FB0065052D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D21B2F1A4A83FB0065052D /* main.m */; };
@@ -53,24 +53,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5454CA211A57DD2400FBE041 /* ANKeyValueProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANKeyValueProtocol.h; sourceTree = "<group>"; };
-		5454CA221A57DE4B00FBE041 /* NSString+ANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ANKeyValue.h"; sourceTree = "<group>"; };
-		5454CA231A57DE4B00FBE041 /* NSString+ANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ANKeyValue.m"; sourceTree = "<group>"; };
-		5454CA261A57DEE500FBE041 /* NSData+ANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ANKeyValue.h"; sourceTree = "<group>"; };
-		5454CA271A57DEE500FBE041 /* NSData+ANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ANKeyValue.m"; sourceTree = "<group>"; };
 		5454CA401A5A5C3B00FBE041 /* ANPersistentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPersistentData.h; sourceTree = "<group>"; };
 		5454CA411A5A5C3B00FBE041 /* ANPersistentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPersistentData.m; sourceTree = "<group>"; };
 		5454CA421A5A5C3B00FBE041 /* ANPersistentStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPersistentStrategy.h; sourceTree = "<group>"; };
 		5454CA431A5A5C3B00FBE041 /* ANPersistentStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPersistentStrategy.m; sourceTree = "<group>"; };
 		5454CA491A5C354100FBE041 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
-		5454CA4C1A5C35DF00FBE041 /* UIImage+ANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANKeyValue.h"; sourceTree = "<group>"; };
-		5454CA4D1A5C35DF00FBE041 /* UIImage+ANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANKeyValue.m"; sourceTree = "<group>"; };
 		5454CA501A62DA2400FBE041 /* SetDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetDemoViewController.h; sourceTree = "<group>"; };
 		5454CA511A62DA2400FBE041 /* SetDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetDemoViewController.m; sourceTree = "<group>"; };
 		5454CA521A62DA2400FBE041 /* SetDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetDemoViewController.xib; sourceTree = "<group>"; };
 		54747A1A1AC0DB2D006B1404 /* ConcurrentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrentViewController.h; sourceTree = "<group>"; };
 		54747A1B1AC0DB2D006B1404 /* ConcurrentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrentViewController.m; sourceTree = "<group>"; };
 		54747A1C1AC0DB2D006B1404 /* ConcurrentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConcurrentViewController.xib; sourceTree = "<group>"; };
+		54854DC21B121E870089A443 /* ANKeyValueProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANKeyValueProtocol.h; sourceTree = "<group>"; };
+		54854DC31B121E870089A443 /* NSData+ANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ANKeyValue.h"; sourceTree = "<group>"; };
+		54854DC41B121E870089A443 /* NSData+ANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ANKeyValue.m"; sourceTree = "<group>"; };
+		54854DC51B121E870089A443 /* NSString+ANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ANKeyValue.h"; sourceTree = "<group>"; };
+		54854DC61B121E870089A443 /* NSString+ANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ANKeyValue.m"; sourceTree = "<group>"; };
+		54854DC71B121E870089A443 /* UIImage+ANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANKeyValue.h"; sourceTree = "<group>"; };
+		54854DC81B121E870089A443 /* UIImage+ANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANKeyValue.m"; sourceTree = "<group>"; };
 		54927B741A72B01800E00047 /* PerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerformanceViewController.h; sourceTree = "<group>"; };
 		54927B751A72B01800E00047 /* PerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerformanceViewController.m; sourceTree = "<group>"; };
 		54927B761A72B01800E00047 /* PerformanceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PerformanceViewController.xib; sourceTree = "<group>"; };
@@ -124,6 +124,20 @@
 				5454CA431A5A5C3B00FBE041 /* ANPersistentStrategy.m */,
 			);
 			path = Persistent;
+			sourceTree = "<group>";
+		};
+		54854DC11B121E870089A443 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				54854DC21B121E870089A443 /* ANKeyValueProtocol.h */,
+				54854DC31B121E870089A443 /* NSData+ANKeyValue.h */,
+				54854DC41B121E870089A443 /* NSData+ANKeyValue.m */,
+				54854DC51B121E870089A443 /* NSString+ANKeyValue.h */,
+				54854DC61B121E870089A443 /* NSString+ANKeyValue.m */,
+				54854DC71B121E870089A443 /* UIImage+ANKeyValue.h */,
+				54854DC81B121E870089A443 /* UIImage+ANKeyValue.m */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		54D21B211A4A83FB0065052D = {
@@ -207,13 +221,7 @@
 				54D21B571A4A84380065052D /* ANKeyValueData.m */,
 				54D21B5A1A4A84380065052D /* ANKeyValueStrategy.h */,
 				54D21B5B1A4A84380065052D /* ANKeyValueStrategy.m */,
-				5454CA211A57DD2400FBE041 /* ANKeyValueProtocol.h */,
-				5454CA261A57DEE500FBE041 /* NSData+ANKeyValue.h */,
-				5454CA271A57DEE500FBE041 /* NSData+ANKeyValue.m */,
-				5454CA221A57DE4B00FBE041 /* NSString+ANKeyValue.h */,
-				5454CA231A57DE4B00FBE041 /* NSString+ANKeyValue.m */,
-				5454CA4C1A5C35DF00FBE041 /* UIImage+ANKeyValue.h */,
-				5454CA4D1A5C35DF00FBE041 /* UIImage+ANKeyValue.m */,
+				54854DC11B121E870089A443 /* Protocol */,
 				5454CA3F1A5A5C3B00FBE041 /* Persistent */,
 			);
 			path = ANKeyValue;
@@ -324,17 +332,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5454CA4E1A5C35DF00FBE041 /* UIImage+ANKeyValue.m in Sources */,
+				54854DCD1B121E870089A443 /* UIImage+ANKeyValue.m in Sources */,
 				5454CA461A5A5C3B00FBE041 /* ANPersistentStrategy.m in Sources */,
 				54747A1D1AC0DB2D006B1404 /* ConcurrentViewController.m in Sources */,
-				5454CA241A57DE4B00FBE041 /* NSString+ANKeyValue.m in Sources */,
 				54D21B361A4A83FB0065052D /* ViewController.m in Sources */,
 				54D21B661A4A84380065052D /* ANKeyValueStrategy.m in Sources */,
 				54D21B621A4A84380065052D /* ANKeyValueData.m in Sources */,
 				54D21B641A4A84380065052D /* ANKeyValueTable.m in Sources */,
-				5454CA281A57DEE500FBE041 /* NSData+ANKeyValue.m in Sources */,
+				54854DC91B121E870089A443 /* NSData+ANKeyValue.m in Sources */,
 				54D21B601A4A84380065052D /* ANKeyValueCache.m in Sources */,
 				54D21B331A4A83FB0065052D /* AppDelegate.m in Sources */,
+				54854DCB1B121E870089A443 /* NSString+ANKeyValue.m in Sources */,
 				5454CA531A62DA2400FBE041 /* SetDemoViewController.m in Sources */,
 				54927B771A72B01800E00047 /* PerformanceViewController.m in Sources */,
 				54D21B301A4A83FB0065052D /* main.m in Sources */,
@@ -346,15 +354,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54854DCC1B121E870089A443 /* NSString+ANKeyValue.m in Sources */,
 				54D21B4A1A4A83FB0065052D /* ANKeyValueTests.m in Sources */,
 				5454CA471A5A5C3B00FBE041 /* ANPersistentStrategy.m in Sources */,
-				5454CA4F1A5C35DF00FBE041 /* UIImage+ANKeyValue.m in Sources */,
 				54D21B611A4A84380065052D /* ANKeyValueCache.m in Sources */,
 				54D21B671A4A84380065052D /* ANKeyValueStrategy.m in Sources */,
 				54D21B651A4A84380065052D /* ANKeyValueTable.m in Sources */,
+				54854DCA1B121E870089A443 /* NSData+ANKeyValue.m in Sources */,
 				54D21B631A4A84380065052D /* ANKeyValueData.m in Sources */,
-				5454CA291A57DEE500FBE041 /* NSData+ANKeyValue.m in Sources */,
-				5454CA251A57DE4B00FBE041 /* NSString+ANKeyValue.m in Sources */,
+				54854DCE1B121E870089A443 /* UIImage+ANKeyValue.m in Sources */,
 				5454CA451A5A5C3B00FBE041 /* ANPersistentData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -41,7 +41,7 @@
 
 - (void)testSet {
 
-    ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"SetValueTest" version:@"0.0.1"];
+    ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"SetValueTest" version:@"0.0.1" resumable:YES];
     [self measureBlock:^{
         NSString *keyStr = [NSString stringWithFormat:@"Key-IntTest"];
         [table setInt:INT32_MIN+1 withKey:keyStr];
@@ -76,7 +76,7 @@
 
 - (void)testGet {
 
-    ANKeyValueTable *preTable = [ANKeyValueTable tableWithName:@"GetValueTest" version:@"0.0.1"];
+    ANKeyValueTable *preTable = [ANKeyValueTable tableWithName:@"GetValueTest" version:@"0.0.1" resumable:YES];
     if (nil == [preTable valueWithKey:@"Key-GetTest1"]) {
         int count = 0;
         while (50 > ++count) {
@@ -88,7 +88,7 @@
     }
 
     [self measureBlock:^{
-        ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"GetValueTest" version:@"0.0.1"];
+        ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"GetValueTest" version:@"0.0.1" resumable:YES];
         int count = 0;
         while (50 > ++count) {
             NSString *keyStr = [NSString stringWithFormat:@"Key-GetTest%d", count];
@@ -100,7 +100,7 @@
 
 - (void)testClear {
 
-    ANKeyValueTable *preTable = [ANKeyValueTable tableWithName:@"ClearValueTest" version:@"0.0.1"];
+    ANKeyValueTable *preTable = [ANKeyValueTable tableWithName:@"ClearValueTest" version:@"0.0.1" resumable:YES];
     if (nil == [preTable valueWithKey:@"Key-ClearTest1"]) {
         int count = 0;
         while (50 > ++count) {
@@ -129,7 +129,7 @@
 
 - (void)testUpdateVersion {
 
-    ANKeyValueTable *table1 = [ANKeyValueTable tableWithName:@"UpdateVersionTest" version:@"0.0.1"];
+    ANKeyValueTable *table1 = [ANKeyValueTable tableWithName:@"UpdateVersionTest" version:@"0.0.1" resumable:NO];
     if (nil == [table1 valueWithKey:@"Key-UpdateVersion"]) {
         NSString *keyStr = [NSString stringWithFormat:@"Key-UpdateVersion"];
         [table1 setValue:[NSNumber numberWithBool:YES] withKey:keyStr];
@@ -137,13 +137,13 @@
         NSAssert(0, @"data for update version test is not ready");
     }
     
-    ANKeyValueTable *table2 = [ANKeyValueTable tableWithName:@"UpdateVersionTest" version:@"0.1.1"];
+    ANKeyValueTable *table2 = [ANKeyValueTable tableWithName:@"UpdateVersionTest" version:@"0.1.1" resumable:NO];
     NSAssert(nil == [table2 valueWithKey:@"Key-UpdateVersion"], @"update version test is not passed");
 }
 
 - (void)testDataBlock {
     
-    ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"DataBlockTest" version:@"0.0.1"];
+    ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"DataBlockTest" version:@"0.0.1" resumable:YES];
     if (nil == [table valueWithKey:@"Key-DataBlockTest1"]) {
         UIImage *testImg = [UIImage imageNamed:@"test"];
         [table setValue:testImg withKey:@"Key-DataBlockTest1"];

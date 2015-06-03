@@ -47,6 +47,22 @@
     return self;
 }
 
+- (id)initWithLevel:(ANPersistentLevel)level
+{
+    self = [super init];
+    if (self) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        if (ANPersistentLevelApplicationSupport == level) {
+            paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+        } else if (ANPersistentLevelUserDocument == level) {
+            paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        }
+        self.rootDirectory = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+        
+    }
+    return self;
+}
+
 - (BOOL)shouldArchive:(ANPersistentData *)data name:(NSString *)name
 {
     return YES;

@@ -16,16 +16,18 @@ static ANKeyValueCache *GlobalDataCache;
 
 @interface ANKeyValueTable()
 {
+@private
     __strong ANKeyValueData *_keyValueData;
     __strong NSString *_dataName;
     __strong NSString *_dataVersion;
+    ANPersistentLevel _dataLevel;
 }
 
 @end
 
 @implementation ANKeyValueTable
 
-+ (id)tableWithName:(NSString *)name version:(NSString *)version
++ (id)tableWithName:(NSString *)name version:(NSString *)version resumable:(BOOL)resumable
 {
     if (![name isKindOfClass:[NSString class]] || 0 == [name length]) {
         return nil;
@@ -35,15 +37,49 @@ static ANKeyValueCache *GlobalDataCache;
         version = @"";
     }
 
+    ANPersistentLevel level = ANPersistentLevelResumableCaches;
+    if (!resumable) {
+        level = ANPersistentLevelApplicationSupport;
+    }
+    NSString *cacheName = [NSString stringWithFormat:@"L%u-%@", level, name];
+    
     ANKeyValueCache *cache = [self dataCache];
-    ANKeyValueData *data = [cache object:name version:version];
+    ANKeyValueData *data = [cache object:cacheName version:version];
     if (nil == data) {
-        data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN];
+        
+        data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN level:level];
+
         if (nil != data) {
-            [cache setObject:data name:name version:version];
+            [cache setObject:data name:cacheName version:version];
         }
     }
-    return [[ANKeyValueTable alloc] initWithName:name version:version];
+    return [[ANKeyValueTable alloc] initWithName:name version:version level:level];
+}
+
++ (id)createTableForUser:(NSString *)name version:(NSString *)version
+{
+    if (![name isKindOfClass:[NSString class]] || 0 == [name length]) {
+        return nil;
+    }
+    
+    if (![version isKindOfClass:[NSString class]] || 0 == [version length]) {
+        version = @"";
+    }
+    
+    ANPersistentLevel level = ANPersistentLevelUserDocument;
+    NSString *cacheName = [NSString stringWithFormat:@"L%u-%@", level, name];
+    
+    ANKeyValueCache *cache = [self dataCache];
+    ANKeyValueData *data = [cache object:cacheName version:version];
+    if (nil == data) {
+        
+        data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN level:level];
+        
+        if (nil != data) {
+            [cache setObject:data name:cacheName version:version];
+        }
+    }
+    return [[ANKeyValueTable alloc] initWithName:name version:version level:level];
 }
 
 + (ANKeyValueCache *)dataCache
@@ -53,7 +89,6 @@ static ANKeyValueCache *GlobalDataCache;
         dispatch_once(&onceToken, ^{
             GlobalDataCache = [[ANKeyValueCache alloc] init];
             GlobalDataCache.delegate = GlobalDataCache;
-            [GlobalDataCache preloadWithDomain:PERSISTENT_DOMAIN];
             
             /*
             [[NSNotificationCenter defaultCenter] addObserver:GlobalDataCache
@@ -78,25 +113,16 @@ static ANKeyValueCache *GlobalDataCache;
         
         _keyValueData = [cache object:_dataName version:_dataVersion];
         if (nil == _keyValueData) {
-            ANKeyValueData *data = [ANKeyValueData data:_dataName version:_dataVersion domain:PERSISTENT_DOMAIN];
+            ANKeyValueData *data = [ANKeyValueData data:_dataName version:_dataVersion domain:PERSISTENT_DOMAIN level:_dataLevel];
             if (nil != data) {
                 [cache setObject:data name:_dataName version:_dataVersion];
                 // 在模拟器上，启用内存memory warning功能，可能会导致setObject后cache马上触发evict Object，
                 // 所以这里刻意把_keyValueData和notification延后设置，这样，即使evict Object在这里
-                // 被同步方式提前触发，_keyValueDatay也能因为是后面set而继续可用，不会导致_keyValueData为nil时，
+                // 被同步方式提前触发，_keyValueData也能因为是后面set而继续可用，不会导致_keyValueData为nil时，
                 // 重新生成一个又被evict Object触发马上重新设置为nil，陷入不可用的循环，springox(20150316)
                 _keyValueData = data;
             }
         }
-        
-        // 这里暂时不能做keyValueData的主动释放，由于keyValueData有timer和退入后台的监听，
-        // 所以尽量谨慎对keyValueData的释放，tencent:jiachunke(20150318)
-        /*
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(cacheWillEvictObjectNotification:)
-                                                     name:kANKeyValueCacheWillEvictObjectNotification
-                                                   object:nil];
-         */
         
         return _keyValueData;
     }
@@ -111,12 +137,13 @@ static ANKeyValueCache *GlobalDataCache;
     return self;
 }
 
-- (id)initWithName:(NSString *)name version:(NSString *)version
+- (id)initWithName:(NSString *)name version:(NSString *)version level:(ANPersistentLevel)level
 {
     self = [super init];
     if (self) {
         _dataName = name;
         _dataVersion = version;
+        _dataLevel = level;
     }
     return self;
 }

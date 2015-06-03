@@ -62,7 +62,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
         ANKeyValueTable *table = [_tableDict objectForKey:key];
         if (nil == table) {
-            table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+            table = [ANKeyValueTable tableWithName:key version:@"0.0.9" resumable:YES];
             [_tableDict setObject:table forKey:key];
         }
         [table clear];
@@ -98,7 +98,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
         ANKeyValueTable *table = [_tableDict objectForKey:key];
         if (nil == table) {
-            table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+            table = [ANKeyValueTable tableWithName:key version:@"0.0.9" resumable:YES];
             [_tableDict setObject:table forKey:key];
         }
         [table clear];
@@ -161,7 +161,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
             NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
             ANKeyValueTable *table = [_tableDict objectForKey:key];
             if (nil == table) {
-                table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+                table = [ANKeyValueTable tableWithName:key version:@"0.0.9" resumable:YES];
                 [_tableDict setObject:table forKey:key];
             }
             [tableArr addObject:table];
@@ -205,7 +205,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
             NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
             ANKeyValueTable *table = [_tableDict objectForKey:key];
             if (nil == table) {
-                table = [ANKeyValueTable tableWithName:key version:@"0.0.9"];
+                table = [ANKeyValueTable tableWithName:key version:@"0.0.9" resumable:YES];
                 [_tableDict setObject:table forKey:key];
             }
             [tableArr addObject:table];

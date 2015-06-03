@@ -13,14 +13,6 @@ NSString *const kANKeyValueCacheWillEvictObjectNotification = @"kANKeyValueCache
 
 @implementation ANKeyValueCache
 
-- (void)preloadWithDomain:(NSString *)domain
-{
-    [ANKeyValueData dataWithDomain:domain dataBlock:^(id data, NSUInteger idx, BOOL *stop) {
-        ANKeyValueData *kvData = (ANKeyValueData *)data;
-        [self setObject:kvData name:kvData.name version:kvData.version];
-    }];
-}
-
 - (id)object:(NSString *)name version:(NSString *)version
 {
     if (![name isKindOfClass:[NSString class]] || 0 == [name length]) {
@@ -66,12 +58,5 @@ NSString *const kANKeyValueCacheWillEvictObjectNotification = @"kANKeyValueCache
     // 对外的通知间接使用 obj 作为 notification的sender, springox(20150316)
     [[NSNotificationCenter defaultCenter] postNotificationName:kANKeyValueCacheWillEvictObjectNotification object:obj];
 }
-
-/*
-- (void)test:(NSNotification *)not
-{
-    [self removeAllObjects];
-}
- */
 
 @end

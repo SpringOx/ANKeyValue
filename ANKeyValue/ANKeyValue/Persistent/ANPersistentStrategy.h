@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_OPTIONS(unsigned, ANPersistentLevel) {
+    ANPersistentLevelResumableCaches = 0,      // 当系统回收存储空间时，数据能够自动完整的恢复
+    ANPersistentLevelApplicationSupport = 1,   // App运行时依赖的资源，同时不能够自动完整的恢复
+    ANPersistentLevelUserDocument = 2,         // 记录用户特定行为和隐私信息，同时不能够自动完整的恢复
+};
+
 @interface NSString (MD5)
 
 - (NSString *)MD5String;
@@ -19,6 +25,8 @@
 @interface ANPersistentStrategy : NSObject
 
 @property (nonatomic, strong) NSString *rootDirectory;
+
+- (id)initWithLevel:(ANPersistentLevel)level;
 
 - (BOOL)shouldArchive:(ANPersistentData *)data name:(NSString *)name;
 

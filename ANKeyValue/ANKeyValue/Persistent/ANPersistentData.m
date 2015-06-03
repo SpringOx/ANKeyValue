@@ -7,7 +7,6 @@
 //
 
 #import "ANPersistentData.h"
-#import "ANPersistentStrategy.h"
 
 #define ArchiveTimerTimeIntervalDefault    5.f
 
@@ -15,49 +14,18 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 @interface ANPersistentData()
 {
-    __strong NSTimer *_archiveTimer;
-    
+@private
     BOOL _isArchiving;
+    __strong NSTimer *_archiveTimer;
 }
 
 @end
 
 @implementation ANPersistentData
 
-+ (NSArray *)dataWithDomain:(NSString *)domain dataBlock:(void (^)(id data, NSUInteger idx, BOOL *stop))block
++ (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain level:(ANPersistentLevel)level
 {
-    ANPersistentStrategy *strategy = [self strategyForData];
-    
-    NSArray *paths = [strategy localPathArrayWithDomain:domain];
-    NSMutableArray *tempArr = [NSMutableArray arrayWithCapacity:[paths count]];
-    BOOL stop = NO;
-    NSUInteger index = 0;
-    for (NSString *path in paths) {
-        ANPersistentData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        if (nil == data || ![data respondsToSelector:@selector(strategy)]) {
-            continue;
-        }
-        data.strategy = strategy;
-        
-        stop = NO;
-        block(data, index, &stop);
-        [tempArr addObject:data];
-        index += 1;
-        
-        if (stop) {
-            break;
-        }
-    }
-    
-    if (stop) {
-        return nil;
-    }
-    return [NSArray arrayWithArray:tempArr];
-}
-
-+ (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain
-{
-    ANPersistentStrategy *strategy = [self strategyForData];
+    ANPersistentStrategy *strategy = [self strategy:level];
     
     NSString *path = [strategy localPath:name version:version domain:domain];
     ANPersistentData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
@@ -74,9 +42,9 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     return data;
 }
 
-+ (id)strategyForData
++ (id)strategy:(ANPersistentLevel)level
 {
-    return [[ANPersistentStrategy alloc] init];
+    return [[ANPersistentStrategy alloc] initWithLevel:level];
 }
 
 - (void)dealloc

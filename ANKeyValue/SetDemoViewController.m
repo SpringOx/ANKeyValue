@@ -27,7 +27,7 @@
                                                                      action:@selector(didPressAddButtonAction:)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
     
-    self.setDemoTable = [ANKeyValueTable tableWithName:@"SetDemo" version:@"0.0.9"];
+    self.setDemoTable = [ANKeyValueTable createTableForUser:@"SetDemo" version:@"0.0.9"];
 }
 
 - (void)didReceiveMemoryWarning {
