@@ -13,7 +13,7 @@
 
 + (id)tableWithName:(NSString *)name version:(NSString *)version resumable:(BOOL)resumable;
 
-+ (id)createTableForUser:(NSString *)name version:(NSString *)version;
++ (id)tableForUser:(NSString *)name version:(NSString *)version;
 
 - (id)initWithData:(ANKeyValueData *)data;
 

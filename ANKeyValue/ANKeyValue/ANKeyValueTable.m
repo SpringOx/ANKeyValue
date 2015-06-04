@@ -56,7 +56,7 @@ static ANKeyValueCache *GlobalDataCache;
     return [[ANKeyValueTable alloc] initWithName:name version:version level:level];
 }
 
-+ (id)createTableForUser:(NSString *)name version:(NSString *)version
++ (id)tableForUser:(NSString *)name version:(NSString *)version
 {
     if (![name isKindOfClass:[NSString class]] || 0 == [name length]) {
         return nil;
