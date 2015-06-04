@@ -145,21 +145,21 @@
     
     ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"DataBlockTest" version:@"0.0.1" resumable:YES];
     if (nil == [table valueWithKey:@"Key-DataBlockTest1"]) {
-        UIImage *testImg = [UIImage imageNamed:@"test"];
-        [table setValue:testImg withKey:@"Key-DataBlockTest1"];
-        
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"png"];
-        NSData *data = [NSData dataWithContentsOfFile:filePath];
-        [table setValue:data withKey:@"Key-DataBlockTest2"];
+        NSData *testData = [NSData dataWithContentsOfFile:filePath];
+        [table setValue:testData withKey:@"Key-DataBlockTest1"];
+        
+        UIImage *testImg = [UIImage imageWithData:testData];
+        [table setValue:testImg withKey:@"Key-DataBlockTest2"];
         
         [table synchronous:NO];
         NSAssert(0, @"data for data block test is not ready");
     }
 
-    UIImage *image = [table valueWithKey:@"Key-DataBlockTest1"];
-    NSAssert1([image isKindOfClass:[UIImage class]], @"data block test is not passed", image);
-    NSData *data = [table valueWithKey:@"Key-DataBlockTest2"];
+    NSData *data = [table valueWithKey:@"Key-DataBlockTest1"];
     NSAssert1([data isKindOfClass:[NSData class]], @"data block test is not passed", data);
+    UIImage *image = [table valueWithKey:@"Key-DataBlockTest2"];
+    NSAssert1([image isKindOfClass:[UIImage class]], @"data block test is not passed", image);
 }
 
 @end

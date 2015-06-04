@@ -123,7 +123,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
             // 给Map写入一个索引值，即归档前缀和key组成，springox(20150105)
             NSString *newValue = [NSString stringWithFormat:@"%@%@", GlobalDataBlockArchivePathPrefix, aKey];
             [_keyValueMap setObject:newValue forKey:aKey];
-            // 避免key反复被使用导致原删除变成不合理的节点，springox(20150105)
+            // 如果一个被remove的key重新被使用，那么删除列表里面的节点将变得不合理，springox(20150105)
             [_removedDataPathMap removeObjectForKey:aKey];
             [_dataLock unlock];
             
@@ -151,6 +151,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
         NSString *valueStr = (NSString *)value;
         if ([valueStr hasPrefix:GlobalDataBlockArchivePathPrefix]) {
             NSString *tempValue = [_dataBlockCache objectForKey:aKey];
+            tempValue = nil;
             if (nil == tempValue) {
                 NSString *tempKey = [valueStr stringByReplacingOccurrencesOfString:GlobalDataBlockArchivePathPrefix withString:@""];
                 NSString *dataPath = [(ANKeyValueStrategy *)self.strategy dataBlockPath:self primaryKey:(NSString *)tempKey];
