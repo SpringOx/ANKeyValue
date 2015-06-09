@@ -127,6 +127,15 @@
     }
 }
 
+- (void)testCrypt {
+    
+    ANKeyValueTable *cTable = [ANKeyValueTable tableWithName:@"CryptContentTest" version:@"0.0.1" resumable:YES];
+    NSString *c1 = @"Content-CryptTest";
+    [cTable encryptContent:c1 withKey:@"Key-CryptTest"];
+    NSString *c2 = [cTable decryptContentWithKey:@"Key-CryptTest"];
+    NSAssert([c1 isEqualToString:c2], @"crypt test is not passed");
+}
+
 - (void)testUpdateVersion {
 
     ANKeyValueTable *table1 = [ANKeyValueTable tableWithName:@"UpdateVersionTest" version:@"0.0.1" resumable:NO];

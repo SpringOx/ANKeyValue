@@ -8,11 +8,13 @@
 
 #import "NSData+ANKeyValue.h"
 
+#define DATA_ENCODE_WITHOUT_DATA_BLOCK    1024
+
 @implementation NSData (ANKeyValue)
 
 - (BOOL)shouldEncodeWithDataBlock
 {
-    if (1024 < [self length]) {
+    if (DATA_ENCODE_WITHOUT_DATA_BLOCK < [self length]) {
         return YES;
     }
     return NO;

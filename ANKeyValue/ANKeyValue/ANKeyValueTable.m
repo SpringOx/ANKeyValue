@@ -9,8 +9,10 @@
 #import "ANKeyValueTable.h"
 #import "ANKeyValueCache.h"
 #import "ANKeyValueData.h"
+#import "AESCrypt.h"
 
 #define PERSISTENT_DOMAIN     @"KeyValueStorage"
+#define AES_CRYPT_PASSWORD    @"xq$\"1#.H"
 
 static ANKeyValueCache *GlobalDataCache;
 
@@ -128,6 +130,7 @@ static ANKeyValueCache *GlobalDataCache;
     }
 }
 
+#pragma mark -
 - (id)initWithData:(ANKeyValueData *)data
 {
     self = [super init];
@@ -186,6 +189,7 @@ static ANKeyValueCache *GlobalDataCache;
     [[self keyValueData] clearData];
 }
 
+#pragma mark -
 - (void)setInt:(int)value withKey:(id <NSCopying>)key
 {
     NSNumber *intNum = [NSNumber numberWithInt:value];
@@ -233,6 +237,15 @@ static ANKeyValueCache *GlobalDataCache;
     [self synchronous];
 }
 
+- (void)encryptContent:(NSString *)content withKey:(id <NSCopying>)key
+{
+    NSString *cryptedContent = [AESCrypt encrypt:content password:AES_CRYPT_PASSWORD];
+    [[self keyValueData] setValue:cryptedContent withKey:key];
+    
+    [self synchronous];
+}
+
+#pragma mark -
 - (int)intWithKey:(id <NSCopying>)key
 {
     NSNumber *value = [[self keyValueData] valueWithKey:key];
@@ -274,6 +287,13 @@ static ANKeyValueCache *GlobalDataCache;
     return [[self keyValueData] valueWithKey:key];
 }
 
+- (id)decryptContentWithKey:(id <NSCopying>)key
+{
+    NSString *value = [[self keyValueData] valueWithKey:key];
+    return [AESCrypt decrypt:value password:AES_CRYPT_PASSWORD];
+}
+
+#pragma mark -
 - (NSArray *)allKeys
 {
     return [[self keyValueData] allKeys];

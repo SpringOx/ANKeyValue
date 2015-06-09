@@ -15,6 +15,7 @@
 
 + (id)tableForUser:(NSString *)name version:(NSString *)version;
 
+#pragma mark -
 - (id)initWithData:(ANKeyValueData *)data;
 
 - (void)synchronous;
@@ -25,6 +26,7 @@
 
 - (void)clear;
 
+#pragma mark -
 - (void)setInt:(int)value withKey:(id <NSCopying>)key;
 
 - (void)setInteger:(NSInteger)value withKey:(id <NSCopying>)key;
@@ -37,6 +39,9 @@
 
 - (void)setValue:(id <NSCoding>)value withKey:(id <NSCopying>)key;
 
+- (void)encryptContent:(NSString *)content withKey:(id <NSCopying>)key;
+
+#pragma mark -
 - (int)intWithKey:(id <NSCopying>)key;
 
 - (NSInteger)integerWithKey:(id <NSCopying>)key;
@@ -47,6 +52,9 @@
 
 - (id)valueWithKey:(id <NSCopying>)key;
 
+- (id)decryptContentWithKey:(id <NSCopying>)key;
+
+#pragma mark -
 - (NSArray *)allKeys;
 
 - (NSArray *)allValues;

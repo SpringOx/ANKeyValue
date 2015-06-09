@@ -68,14 +68,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        
-        self.domain = [aDecoder decodeObjectForKey:@"domain"];
-        self.version = [aDecoder decodeObjectForKey:@"version"];
-        self.name = [aDecoder decodeObjectForKey:@"name"];
-        self.createdTime = [aDecoder decodeObjectForKey:@"createdTime"];
-        self.modifiedTime = [aDecoder decodeObjectForKey:@"modifiedTime"];
         
         _dataLock = [[NSRecursiveLock alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -88,11 +82,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:_domain forKey:@"domain"];
-    [aCoder encodeObject:_version forKey:@"version"];
-    [aCoder encodeObject:_name forKey:@"name"];
-    [aCoder encodeObject:_createdTime forKey:@"createdTime"];
-    [aCoder encodeObject:_modifiedTime forKey:@"modifiedTime"];
+    [super encodeWithCoder:aCoder];
 }
 
 - (id)copyWithZone:(NSZone *)zone

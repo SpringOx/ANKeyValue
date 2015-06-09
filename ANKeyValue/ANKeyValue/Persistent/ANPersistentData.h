@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "AutoCoding.h"
 #import "ANPersistentStrategy.h"
 
 @interface ANPersistentData : NSObject<NSCoding, NSCopying>

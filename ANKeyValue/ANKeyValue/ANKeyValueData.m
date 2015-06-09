@@ -151,7 +151,6 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
         NSString *valueStr = (NSString *)value;
         if ([valueStr hasPrefix:GlobalDataBlockArchivePathPrefix]) {
             NSString *tempValue = [_dataBlockCache objectForKey:aKey];
-            tempValue = nil;
             if (nil == tempValue) {
                 NSString *tempKey = [valueStr stringByReplacingOccurrencesOfString:GlobalDataBlockArchivePathPrefix withString:@""];
                 NSString *dataPath = [(ANKeyValueStrategy *)self.strategy dataBlockPath:self primaryKey:(NSString *)tempKey];
