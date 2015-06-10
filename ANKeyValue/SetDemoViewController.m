@@ -8,6 +8,7 @@
 
 #import "SetDemoViewController.h"
 #import "ANKeyValueTable.h"
+#import "SetDemoItem.h"
 
 @interface SetDemoViewController ()
 
@@ -27,7 +28,7 @@
                                                                      action:@selector(didPressAddButtonAction:)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
     
-    self.setDemoTable = [ANKeyValueTable tableForUser:@"SetDemo" version:@"0.0.9"];
+    self.setDemoTable = [ANKeyValueTable tableForUser:@"SetDemo" version:@"0.1.0"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,7 +58,9 @@
 - (void)insertCellWithKey:(NSString *)key
 {
     int randNum = arc4random();
-    [self.setDemoTable setInt:randNum withKey:key];
+    SetDemoItem *item = [[SetDemoItem alloc] init];
+    item.randNum = randNum;
+    [self.setDemoTable setValue:item withKey:key];
     
     [self.tableView reloadData];
 }
@@ -79,7 +82,9 @@
     
     NSString *key = [[self.setDemoTable allKeys] objectAtIndex:indexPath.row];
     textCell.textLabel.text = key;
-    NSString *value = [NSString stringWithFormat:@"%2X", [self.setDemoTable intWithKey:key]];
+    
+    SetDemoItem *item = [self.setDemoTable valueWithKey:key];
+    NSString *value = [NSString stringWithFormat:@"%2X", item.randNum];
     textCell.detailTextLabel.text = value;
     
     return textCell;

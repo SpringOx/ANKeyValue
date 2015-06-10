@@ -17,6 +17,8 @@
 		540685E81B274E2000EFD96B /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 540685DB1B274E2000EFD96B /* NSData+CommonCrypto.m */; };
 		540685E91B274E2000EFD96B /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 540685DD1B274E2000EFD96B /* NSString+Base64.m */; };
 		540685EA1B274E2000EFD96B /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 540685DD1B274E2000EFD96B /* NSString+Base64.m */; };
+		540685EF1B28A03A00EFD96B /* SetDemoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 540685EE1B28A03A00EFD96B /* SetDemoItem.m */; };
+		540685F01B28A03A00EFD96B /* SetDemoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 540685EE1B28A03A00EFD96B /* SetDemoItem.m */; };
 		5454CA441A5A5C3B00FBE041 /* ANPersistentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA411A5A5C3B00FBE041 /* ANPersistentData.m */; };
 		5454CA451A5A5C3B00FBE041 /* ANPersistentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA411A5A5C3B00FBE041 /* ANPersistentData.m */; };
 		5454CA461A5A5C3B00FBE041 /* ANPersistentStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5454CA431A5A5C3B00FBE041 /* ANPersistentStrategy.m */; };
@@ -73,6 +75,8 @@
 		540685DB1B274E2000EFD96B /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		540685DC1B274E2000EFD96B /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		540685DD1B274E2000EFD96B /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		540685ED1B28A03A00EFD96B /* SetDemoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetDemoItem.h; sourceTree = "<group>"; };
+		540685EE1B28A03A00EFD96B /* SetDemoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetDemoItem.m; sourceTree = "<group>"; };
 		5454CA401A5A5C3B00FBE041 /* ANPersistentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPersistentData.h; sourceTree = "<group>"; };
 		5454CA411A5A5C3B00FBE041 /* ANPersistentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPersistentData.m; sourceTree = "<group>"; };
 		5454CA421A5A5C3B00FBE041 /* ANPersistentStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPersistentStrategy.h; sourceTree = "<group>"; };
@@ -209,6 +213,8 @@
 				54D21B321A4A83FB0065052D /* AppDelegate.m */,
 				54D21B341A4A83FB0065052D /* ViewController.h */,
 				54D21B351A4A83FB0065052D /* ViewController.m */,
+				540685ED1B28A03A00EFD96B /* SetDemoItem.h */,
+				540685EE1B28A03A00EFD96B /* SetDemoItem.m */,
 				5454CA501A62DA2400FBE041 /* SetDemoViewController.h */,
 				5454CA511A62DA2400FBE041 /* SetDemoViewController.m */,
 				5454CA521A62DA2400FBE041 /* SetDemoViewController.xib */,
@@ -378,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				540685EF1B28A03A00EFD96B /* SetDemoItem.m in Sources */,
 				54854DCD1B121E870089A443 /* UIImage+ANKeyValue.m in Sources */,
 				5454CA461A5A5C3B00FBE041 /* ANPersistentStrategy.m in Sources */,
 				54747A1D1AC0DB2D006B1404 /* ConcurrentViewController.m in Sources */,
@@ -413,6 +420,7 @@
 				54D21B671A4A84380065052D /* ANKeyValueStrategy.m in Sources */,
 				540685E81B274E2000EFD96B /* NSData+CommonCrypto.m in Sources */,
 				540685A81B27332F00EFD96B /* AutoCoding.m in Sources */,
+				540685F01B28A03A00EFD96B /* SetDemoItem.m in Sources */,
 				54D21B651A4A84380065052D /* ANKeyValueTable.m in Sources */,
 				540685EA1B274E2000EFD96B /* NSString+Base64.m in Sources */,
 				54854DCA1B121E870089A443 /* NSData+ANKeyValue.m in Sources */,
