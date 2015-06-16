@@ -1,4 +1,6 @@
 # ANKeyValue
+=========
+
 iOS data storage with key-value-based approach in line with technology trends, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
 
 一个基于key-value方式的符合技术趋势的iOS数据存储实现，区别于低效的文件方式，简单的归档方式以及复杂的数据库方式，是一种灵活又快捷的对象存储方案。
@@ -19,6 +21,60 @@ With features:
 6、支持策略控制，多级存储；
 7、支持加密/解密操作；
 
+``` objective-c
+    self.setDemoTable = [ANKeyValueTable tableForUser:@"SetDemo" version:@"0.1.0"];
+  
+  {
+      NSString *dateKey = [self date:[NSDate date] stringWithFormat:@"yyyy/MM/dd hh:mm"];
+    
+      int randNum = arc4random();
+      SetDemoItem *item = [[SetDemoItem alloc] init];
+      item.randNum = randNum;
+      [self.setDemoTable setValue:item withKey:key];
+  }
+```
+
+``` objective-c
+    @autoreleasepool {
+        NSMutableArray *tableArr = [NSMutableArray array];
+        int num = 0;
+        do {
+            
+            NSString *key = [NSString stringWithFormat:@"SetOperation-%d", num];
+            ANKeyValueTable *table = [_tableDict objectForKey:key];
+            if (nil == table) {
+                table = [ANKeyValueTable tableWithName:key version:@"0.0.9" resumable:YES];
+                [_tableDict setObject:table forKey:key];
+            }
+            [tableArr addObject:table];
+            
+        } while (10 > ++num);
+        
+        NSInteger total = 10000;
+        NSInteger count = total;
+        while (count) {
+            
+            for (ANKeyValueTable *t in tableArr) {
+                //int randNum = arc4random();
+                int randNum = (int)count;
+                NSString *key = [NSString stringWithFormat:@"Key-%d", randNum];
+                
+                if (0 == type) {
+                    
+                    [t setInt:randNum withKey:key];
+                
+                } else {
+                
+                    [t setValue:@"ABCDEFGHIJKLMNOPQRSTVUWXYZ" withKey:key];
+                    
+                }
+                
+            }
+            
+            count--;
+        }
+    }
+```
 
 ## Contact(联系)
 
