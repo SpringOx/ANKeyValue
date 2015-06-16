@@ -1,5 +1,5 @@
 # ANKeyValue
-iOS data storage to implement a key-value-based approach in line with technology trends, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
+iOS data storage with key-value-based approach in line with technology trends, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
 
 key-valueiOS
 
