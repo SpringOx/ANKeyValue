@@ -83,8 +83,8 @@ With features:
 
 ## Contact(联系)
 
-- [https://github.com/SpringOx](https://github.com/SpringOx)
-- [jiachunke@gmail.com](jiachunke@gmail.com)
+- [GitHub https://github.com/SpringOx](https://github.com/SpringOx)
+- [Email jiachunke@gmail.com](jiachunke@gmail.com)
 
 
 
