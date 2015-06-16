@@ -1,4 +1,4 @@
-# ANKeyValue
+ANKeyValue(键值存储)
 =========
 
 iOS data storage with key-value-based approach in line with technology trends, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
