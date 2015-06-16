@@ -23,15 +23,12 @@ With features:
 
 ``` objective-c
     self.setDemoTable = [ANKeyValueTable tableForUser:@"SetDemo" version:@"0.1.0"];
-  
-  {
-      NSString *dateKey = [self date:[NSDate date] stringWithFormat:@"yyyy/MM/dd hh:mm"];
     
-      int randNum = arc4random();
-      SetDemoItem *item = [[SetDemoItem alloc] init];
-      item.randNum = randNum;
-      [self.setDemoTable setValue:item withKey:key];
-  }
+    NSString *dateKey = [self date:[NSDate date] stringWithFormat:@"yyyy/MM/dd hh:mm"];
+    int randNum = arc4random();
+    SetDemoItem *item = [[SetDemoItem alloc] init];
+    item.randNum = randNum;
+    [self.setDemoTable setValue:item withKey:key];
 ```
 
 ``` objective-c
@@ -74,6 +71,14 @@ With features:
             count--;
         }
     }
+```
+
+``` objective-c
+    ANKeyValueTable *cTable = [ANKeyValueTable tableWithName:@"CryptContentTest" version:@"0.0.1" resumable:YES];
+    NSString *c1 = @"Content-CryptTest";
+    [cTable encryptContent:c1 withKey:@"Key-CryptTest"];
+    NSString *c2 = [cTable decryptContentWithKey:@"Key-CryptTest"];
+    NSAssert([c1 isEqualToString:c2], @"crypt test is not passed");
 ```
 
 ## Contact(联系)
