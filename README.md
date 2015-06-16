@@ -92,8 +92,8 @@ With features:
 
 ## Contact(联系)
 
-- [https://github.com/SpringOx(GitHub)](https://github.com/SpringOx)
-- [jiachunke@gmail.com(Email)](jiachunke@gmail.com)
+- [https://github.com/SpringOx](https://github.com/SpringOx)(GitHub)
+- [jiachunke@gmail.com](jiachunke@gmail.com)(Email)
 
 
 
