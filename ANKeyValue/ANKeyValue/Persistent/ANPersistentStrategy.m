@@ -10,8 +10,8 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #define ARCHIVE_TIME_INTERVAL_DEFAULT    10.f
-#define VERSION_DEFAULT          @"1.0.0"
-#define DOMAIN_STRING_DEFAULT    @"PersistentData"
+#define DOMAIN_STRING_DEFAULT            @"PersistentData"
+#define VERSION_DEFAULT                  @"1.0.0"
 
 @implementation NSString (MD5)
 
