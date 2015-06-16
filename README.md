@@ -21,6 +21,15 @@ With features:
 6、支持策略控制，多级存储；
 7、支持加密/解密操作；
 
+
+![Screenshot](https://dl.dropboxusercontent.com/u/59801943/Screenshots/ANKeyValue-1.png)
+
+![Screenshot](https://dl.dropboxusercontent.com/u/59801943/Screenshots/ANKeyValue-2.png)
+
+
+
+### Usage(用法)
+
 ``` objective-c
     self.setDemoTable = [ANKeyValueTable tableForUser:@"SetDemo" version:@"0.1.0"];
     
