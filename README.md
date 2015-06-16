@@ -20,7 +20,7 @@ With features:
 7、支持加密/解密操作；
 
 
-## Contact()
+## Contact(联系)
 
 - [GitHub](https://github.com/SpringOx)
 - [Email](jiachunke@gmail.com)
