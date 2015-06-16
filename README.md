@@ -11,7 +11,6 @@ With features:
 6, support for policy control, multi-level storage;
 7, support encryption / decryption operations;
 
-
 具备特性：
 1、支持多业务，使用到存储完全隔离；
 2、支持自动序列化和反序列化，简化持久化；
