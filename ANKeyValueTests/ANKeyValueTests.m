@@ -83,7 +83,7 @@
             NSString *keyStr = [NSString stringWithFormat:@"Key-GetTest%d", count];
             [preTable setInt:count withKey:keyStr];
         }
-        [preTable synchronous:NO];
+        [preTable synchronous];
         NSAssert(0, @"data for get test is not ready");;
     }
 
@@ -107,7 +107,7 @@
             NSString *keyStr = [NSString stringWithFormat:@"Key-ClearTest%d", count];
             [preTable setInt:count withKey:keyStr];
         }
-        [preTable synchronous:NO];
+        [preTable synchronous];
     }
     
     NSAssert(nil != [preTable valueWithKey:@"Key-ClearTest1"], @"data for clear test is not ready");
@@ -142,7 +142,7 @@
     if (nil == [table1 valueWithKey:@"Key-UpdateVersion"]) {
         NSString *keyStr = [NSString stringWithFormat:@"Key-UpdateVersion"];
         [table1 setValue:[NSNumber numberWithBool:YES] withKey:keyStr];
-        [table1 synchronous:NO];
+        [table1 synchronous];
         NSAssert(0, @"data for update version test is not ready");
     }
     
@@ -161,7 +161,7 @@
         UIImage *testImg = [UIImage imageWithData:testData];
         [table setValue:testImg withKey:@"Key-DataBlockTest2"];
         
-        [table synchronous:NO];
+        [table synchronous];
         NSAssert(0, @"data for data block test is not ready");
     }
 

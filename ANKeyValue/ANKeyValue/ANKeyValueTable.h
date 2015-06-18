@@ -18,8 +18,10 @@
 #pragma mark -
 - (id)initWithData:(ANKeyValueData *)data;
 
+// 支持持久化操作，强制执行，springox(20150618)
 - (void)synchronous;
 
+// 支持持久化操作，可选择定时执行还是强制执行，atomically==YES为定时执行，定时执行对于频繁持久化操作更有效，减少重复持久化操作的浪费，springox(20150618)
 - (void)synchronous:(BOOL)atomically;
 
 - (BOOL)isArchiving;

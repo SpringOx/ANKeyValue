@@ -57,7 +57,6 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _keyValueMap = [aDecoder decodeObjectForKey:@"keyValueMap"];
         _dataBlockCache = [[NSCache alloc] init];
         _removedDataPathMap = [NSMutableDictionary dictionary];
     }
@@ -67,7 +66,6 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [super encodeWithCoder:aCoder];
-    [aCoder encodeObject:_keyValueMap forKey:@"keyValueMap"];
 }
 
 - (void)dealloc
