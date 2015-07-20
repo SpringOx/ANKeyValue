@@ -57,6 +57,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     if (0 == indexPath.row) {
         SetDemoViewController *viewCtl = [[SetDemoViewController alloc] initWithNibName:nil bundle:nil];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

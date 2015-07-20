@@ -165,13 +165,13 @@ static ANKeyValueCache *GlobalDataCache;
     }
 }
 
-- (void)synchronous
+- (void)synchronize
 {
     // 默认强制持久化操作，springox(20150618)
-    [self synchronous:NO];
+    [self synchronize:NO];
 }
 
-- (void)synchronous:(BOOL)atomically
+- (void)synchronize:(BOOL)atomically
 {
     if (atomically) {
         [[self keyValueData] setNeedToArchive];
@@ -196,7 +196,7 @@ static ANKeyValueCache *GlobalDataCache;
     NSNumber *intNum = [NSNumber numberWithInt:value];
     [[self keyValueData] setValue:intNum withKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 - (void)setInteger:(NSInteger)value withKey:(id <NSCopying>)key
@@ -204,7 +204,7 @@ static ANKeyValueCache *GlobalDataCache;
     NSNumber *integerNum = [NSNumber numberWithInteger:value];
     [[self keyValueData] setValue:integerNum withKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 - (void)setFloat:(float)value withKey:(id <NSCopying>)key
@@ -212,7 +212,7 @@ static ANKeyValueCache *GlobalDataCache;
     NSNumber *floatNum = [NSNumber numberWithFloat:value];
     [[self keyValueData] setValue:floatNum withKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 - (void)setDouble:(double)value withKey:(id <NSCopying>)key
@@ -220,7 +220,7 @@ static ANKeyValueCache *GlobalDataCache;
     NSNumber *doubleNum = [NSNumber numberWithDouble:value];
     [[self keyValueData] setValue:doubleNum withKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 - (void)setBool:(BOOL)value withKey:(id <NSCopying>)key
@@ -228,14 +228,14 @@ static ANKeyValueCache *GlobalDataCache;
     NSNumber *boolNum = [NSNumber numberWithBool:value];
     [[self keyValueData] setValue:boolNum withKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 - (void)setValue:(id <NSCoding, ANKeyValue>)value withKey:(id <NSCopying>)key
 {
     [[self keyValueData] setValue:value withKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 - (void)encryptContent:(NSString *)content withKey:(id <NSCopying>)key
@@ -243,7 +243,7 @@ static ANKeyValueCache *GlobalDataCache;
     NSString *cryptedContent = [AESCrypt encrypt:content password:AES_CRYPT_PASSWORD];
     [[self keyValueData] setValue:cryptedContent withKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 #pragma mark -
@@ -309,7 +309,7 @@ static ANKeyValueCache *GlobalDataCache;
 {
     [[self keyValueData] removeValueWithKey:key];
     
-    [self synchronous:YES];
+    [self synchronize:YES];
 }
 
 - (void)removeAllValues
