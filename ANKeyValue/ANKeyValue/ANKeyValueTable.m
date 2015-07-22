@@ -84,6 +84,11 @@ static ANKeyValueCache *GlobalDataCache;
     return [[ANKeyValueTable alloc] initWithName:name version:version level:level];
 }
 
++ (id)userDefaultTable
+{
+    return [self tableForUser:@"UserDefault" version:@"1.0.0"];
+}
+
 + (ANKeyValueCache *)dataCache
 {
     if (nil == GlobalDataCache) {
@@ -240,6 +245,10 @@ static ANKeyValueCache *GlobalDataCache;
 
 - (void)encryptContent:(NSString *)content withKey:(id <NSCopying>)key
 {
+    if (nil == content || ![content isKindOfClass:[NSString class]]) {
+        return;
+    }
+    
     NSString *cryptedContent = [AESCrypt encrypt:content password:AES_CRYPT_PASSWORD];
     [[self keyValueData] setValue:cryptedContent withKey:key];
     

@@ -15,6 +15,8 @@
 
 + (id)tableForUser:(NSString *)name version:(NSString *)version;
 
++ (id)userDefaultTable;
+
 #pragma mark -
 - (id)initWithData:(ANKeyValueData *)data;
 
