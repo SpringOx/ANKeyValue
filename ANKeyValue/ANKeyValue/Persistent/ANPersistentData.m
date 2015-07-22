@@ -8,8 +8,6 @@
 
 #import "ANPersistentData.h"
 
-#define ArchiveTimerTimeIntervalDefault    5.f
-
 void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityKey;
 
 @interface ANPersistentData()
@@ -105,7 +103,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     [_dataLock lock];
     if ([self.strategy shouldArchive:self name:self.name]) {
         if (nil == _archiveTimer) {
-            _archiveTimer = [NSTimer scheduledTimerWithTimeInterval:ArchiveTimerTimeIntervalDefault target:self selector:@selector(archiveTimerOperation) userInfo:nil repeats:NO];
+            NSTimeInterval timeInterval = [self.strategy timeIntervalOfArchiveTimer];
+            _archiveTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(archiveTimerOperation) userInfo:nil repeats:NO];
             
         }
     }

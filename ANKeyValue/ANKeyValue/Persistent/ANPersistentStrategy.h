@@ -30,6 +30,8 @@ typedef NS_OPTIONS(unsigned, ANPersistentLevel) {
 
 - (BOOL)shouldArchive:(ANPersistentData *)data name:(NSString *)name;
 
+- (NSTimeInterval)timeIntervalOfArchiveTimer;
+
 - (NSString *)localDirectory:(NSString *)rootDir relativePath:(NSString *)relPath;
 
 - (NSString *)localDirectoryWithRelativePath:(NSString *)relPath;

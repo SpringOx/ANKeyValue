@@ -9,7 +9,7 @@
 #import "ANPersistentStrategy.h"
 #import <CommonCrypto/CommonDigest.h>
 
-#define ARCHIVE_TIME_INTERVAL_DEFAULT    10.f
+#define ARCHIVE_TIME_INTERVAL_DEFAULT    5.f
 #define DOMAIN_STRING_DEFAULT            @"PersistentData"
 #define VERSION_DEFAULT                  @"1.0.0"
 
@@ -66,6 +66,11 @@
 - (BOOL)shouldArchive:(ANPersistentData *)data name:(NSString *)name
 {
     return YES;
+}
+
+- (NSTimeInterval)timeIntervalOfArchiveTimer
+{
+    return ARCHIVE_TIME_INTERVAL_DEFAULT;
 }
 
 - (NSString *)localDirectory:(NSString *)rootDir relativePath:(NSString *)relPath
