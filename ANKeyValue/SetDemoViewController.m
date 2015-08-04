@@ -9,10 +9,11 @@
 #import "SetDemoViewController.h"
 #import "ANKeyValueTable.h"
 #import "SetDemoItem.h"
+#import "TableHelper.h"
 
 @interface SetDemoViewController ()
 
-@property (nonatomic, strong) ANKeyValueTable *setDemoTable;
+@property (nonatomic, strong) NSMutableArray *itemList;
 
 @end
 
@@ -28,7 +29,10 @@
                                                                      action:@selector(didPressAddButtonAction:)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
     
-    self.setDemoTable = [ANKeyValueTable userDefaultTable];
+    self.itemList = [[TableHelper getSetItemTable] valueWithKey:@"setItemList"];
+    if (nil == self.itemList) {
+        self.itemList = [NSMutableArray array];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,15 +63,18 @@
 {
     int randNum = arc4random();
     SetDemoItem *item = [[SetDemoItem alloc] init];
+    item.timeStr = key;
     item.randNum = randNum;
-    [self.setDemoTable setValue:item withKey:key];
+    [self.itemList addObject:item];
+    
+    [[TableHelper getSetItemTable] setValue:self.itemList withKey:@"setItemList"];
     
     [self.tableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.setDemoTable allKeys] count];
+    return [self.itemList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,12 +87,9 @@
         textCell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
     }
     
-    NSString *key = [[self.setDemoTable allKeys] objectAtIndex:indexPath.row];
-    textCell.textLabel.text = key;
-    
-    SetDemoItem *item = [self.setDemoTable valueWithKey:key];
-    NSString *value = [NSString stringWithFormat:@"%2X", item.randNum];
-    textCell.detailTextLabel.text = value;
+    SetDemoItem *item = [self.itemList objectAtIndex:indexPath.row];
+    textCell.textLabel.text = item.timeStr;
+    textCell.detailTextLabel.text = [NSString stringWithFormat:@"%2X", item.randNum];
     
     return textCell;
 }
@@ -105,8 +109,8 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *key = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
-    [self.setDemoTable removeValueWithKey:key];
+    [self.itemList removeObjectAtIndex:indexPath.row];
+    [[TableHelper getSetItemTable] setValue:self.itemList withKey:@"setItemList"];
     
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
 }

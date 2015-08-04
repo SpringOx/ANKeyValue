@@ -12,6 +12,8 @@
 
 @interface SetDemoItem : NSObject<ANKeyValue>
 
+@property (nonatomic, strong) NSString *timeStr;
+
 @property (nonatomic, assign) int randNum;
 
 @end

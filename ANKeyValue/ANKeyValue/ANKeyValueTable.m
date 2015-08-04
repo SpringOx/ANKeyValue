@@ -292,6 +292,15 @@ static ANKeyValueCache *GlobalDataCache;
     return 0;
 }
 
+- (BOOL)boolWithKey:(id <NSCopying>)key
+{
+    NSNumber *value = [[self keyValueData] valueWithKey:key];
+    if ([value respondsToSelector:@selector(doubleValue)]) {
+        return [value boolValue];
+    }
+    return 0;
+}
+
 - (id)valueWithKey:(id <NSCopying>)key
 {
     return [[self keyValueData] valueWithKey:key];
