@@ -67,6 +67,7 @@
         [table setBool:YES withKey:keyStr];
         value = [table valueWithKey:keyStr];
         NSAssert1(YES==[[table valueWithKey:keyStr] boolValue], @"bool test fail", value);
+        NSAssert1(YES==[table boolWithKey:keyStr], @"bool test fail", value);
     }];
     
     while ([table isArchiving]) {
