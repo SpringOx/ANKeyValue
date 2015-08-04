@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ANKeyValueTable.h"
 
 @interface TableHelper : NSObject
 
-+ (id)getUserDefaultTable;
++ (ANKeyValueTable *)getUserDefaultTable;
 
-+ (id)getSetItemTable;
++ (ANKeyValueTable *)getSetItemTable;
 
 @end

@@ -31,13 +31,15 @@ With features:
 ### Usage(用法)
 
 ``` objective-c
-    self.setDemoTable = [ANKeyValueTable tableForUser:@"SetDemo" version:@"0.1.0"];
+    self.itemList = [[TableHelper getSetItemTable] valueWithKey:@"setItemList"];
     
-    NSString *dateKey = [self date:[NSDate date] stringWithFormat:@"yyyy/MM/dd hh:mm"];
-    int randNum = arc4random();
-    SetDemoItem *item = [[SetDemoItem alloc] init];
-    item.randNum = randNum;
-    [self.setDemoTable setValue:item withKey:key];
+    - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+    {
+        [self.itemList removeObjectAtIndex:indexPath.row];
+        [[TableHelper getSetItemTable] synchronize];
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }
 ```
 
 ``` objective-c

@@ -7,16 +7,15 @@
 //
 
 #import "TableHelper.h"
-#import "ANKeyValueTable.h"
 
 @implementation TableHelper
 
-+ (id)getUserDefaultTable
++ (ANKeyValueTable *)getUserDefaultTable
 {
     return [ANKeyValueTable userDefaultTable];
 }
 
-+ (id)getSetItemTable
++ (ANKeyValueTable *)getSetItemTable
 {
     return [ANKeyValueTable tableWithName:@"SetItem" version:@"1.0.0" resumable:YES];
 }

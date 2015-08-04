@@ -110,7 +110,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.itemList removeObjectAtIndex:indexPath.row];
-    [[TableHelper getSetItemTable] setValue:self.itemList withKey:@"setItemList"];
+    [[TableHelper getSetItemTable] synchronize];
     
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
 }
