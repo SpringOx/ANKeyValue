@@ -29,10 +29,7 @@
                                                                      action:@selector(didPressAddButtonAction:)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
     
-    self.itemList = [[TableHelper getSetItemTable] valueWithKey:@"setItemList"];
-    if (nil == self.itemList) {
-        self.itemList = [NSMutableArray array];
-    }
+    self.itemList = [[TableHelper getSetItemTable] containerWithKey:@"setItemList"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,9 +62,13 @@
     SetDemoItem *item = [[SetDemoItem alloc] init];
     item.timeStr = key;
     item.randNum = randNum;
+    
+    if (nil == self.itemList) {
+        self.itemList = [NSMutableArray array];
+    }
     [self.itemList addObject:item];
     
-    [[TableHelper getSetItemTable] setValue:self.itemList withKey:@"setItemList"];
+    [[TableHelper getSetItemTable] setContainer:self.itemList withKey:@"setItemList"];
     
     [self.tableView reloadData];
 }

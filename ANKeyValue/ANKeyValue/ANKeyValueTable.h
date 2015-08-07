@@ -65,6 +65,13 @@
 - (void)clear;
 
 #pragma mark -
+/*! @brief Value
+ *
+ * 最基础的set方法
+ * @param key
+ */
+- (void)setValue:(id <NSCoding>)value withKey:(id <NSCopying>)key;
+
 /*! @brief Int
  *
  * @param key
@@ -95,19 +102,26 @@
  */
 - (void)setBool:(BOOL)value withKey:(id <NSCopying>)key;
 
-/*! @brief Value
- *
- * @param key
- */
-- (void)setValue:(id <NSCoding>)value withKey:(id <NSCopying>)key;
-
 /*! @brief 字符串加密
  *
  * @param key
  */
 - (void)encryptContent:(NSString *)content withKey:(id <NSCopying>)key;
 
+/*! @brief set容器
+ *
+ * @param key
+ */
+- (void)setContainer:(id)container withKey:(id <NSCopying>)key;
+
 #pragma mark -
+/*! @brief value
+ *
+ * 最基础的get方法，该方法返回值默认是copy操作，如果支持“NSMutableCopying”协议是mutableCopy操作
+ * @param key
+ */
+- (id)valueWithKey:(id <NSCopying>)key;
+
 /*! @brief int
  *
  * @param key
@@ -138,17 +152,17 @@
  */
 - (BOOL)boolWithKey:(id <NSCopying>)key;
 
-/*! @brief value
- *
- * @param key
- */
-- (id)valueWithKey:(id <NSCopying>)key;
-
 /*! @brief 字符串解密
  *
  * @param key
  */
 - (id)decryptContentWithKey:(id <NSCopying>)key;
+
+/*! @brief get容器
+ *
+ * @param key
+ */
+- (id)containerWithKey:(id <NSCopying>)key;
 
 #pragma mark -
 /*! @brief 获取所有keys

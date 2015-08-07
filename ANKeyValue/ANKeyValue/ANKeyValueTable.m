@@ -196,6 +196,13 @@ static ANKeyValueCache *GlobalDataCache;
 }
 
 #pragma mark -
+- (void)setValue:(id <NSCoding, ANKeyValue>)value withKey:(id <NSCopying>)key
+{
+    [[self keyValueData] setValue:value withKey:key];
+    
+    [self synchronize:YES];
+}
+
 - (void)setInt:(int)value withKey:(id <NSCopying>)key
 {
     NSNumber *intNum = [NSNumber numberWithInt:value];
@@ -236,13 +243,6 @@ static ANKeyValueCache *GlobalDataCache;
     [self synchronize:YES];
 }
 
-- (void)setValue:(id <NSCoding, ANKeyValue>)value withKey:(id <NSCopying>)key
-{
-    [[self keyValueData] setValue:value withKey:key];
-    
-    [self synchronize:YES];
-}
-
 - (void)encryptContent:(NSString *)content withKey:(id <NSCopying>)key
 {
     if (nil == content || ![content isKindOfClass:[NSString class]]) {
@@ -255,7 +255,22 @@ static ANKeyValueCache *GlobalDataCache;
     [self synchronize:YES];
 }
 
+- (void)setContainer:(id)container withKey:(id <NSCopying>)key
+{
+    if ([container isKindOfClass:[NSSet class]] ||
+        [container isKindOfClass:[NSArray class]] ||
+        [container isKindOfClass:[NSDictionary class]]) {
+        
+        [self setValue:container withKey:key];
+    }
+}
+
 #pragma mark -
+- (id)valueWithKey:(id <NSCopying>)key
+{
+    return [[self keyValueData] valueWithKey:key];
+}
+
 - (int)intWithKey:(id <NSCopying>)key
 {
     NSNumber *value = [[self keyValueData] valueWithKey:key];
@@ -301,15 +316,22 @@ static ANKeyValueCache *GlobalDataCache;
     return 0;
 }
 
-- (id)valueWithKey:(id <NSCopying>)key
-{
-    return [[self keyValueData] valueWithKey:key];
-}
-
 - (id)decryptContentWithKey:(id <NSCopying>)key
 {
     NSString *value = [[self keyValueData] valueWithKey:key];
     return [AESCrypt decrypt:value password:AES_CRYPT_PASSWORD];
+}
+
+- (id)containerWithKey:(id <NSCopying>)key
+{
+    id value = [[self keyValueData] valueWithKey:key];
+    if ([value isKindOfClass:[NSSet class]] ||
+        [value isKindOfClass:[NSArray class]] ||
+        [value isKindOfClass:[NSDictionary class]]) {
+        
+        return value;
+    }
+    return nil;
 }
 
 #pragma mark -

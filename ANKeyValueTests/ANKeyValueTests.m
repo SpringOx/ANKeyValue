@@ -172,4 +172,31 @@
     NSAssert1([image isKindOfClass:[UIImage class]], @"data block test is not passed", image);
 }
 
+- (void)testContainer {
+    
+    ANKeyValueTable *table = [ANKeyValueTable tableWithName:@"ContainerTest" version:@"0.0.1" resumable:YES];
+    if (nil == [table valueWithKey:@"Key-ContainerSet"]) {
+        NSMutableSet *set = [NSMutableSet set];
+        [table setContainer:set withKey:@"Key-ContainerSet"];
+        
+        NSMutableArray *array = [NSMutableArray array];
+        [table setContainer:array withKey:@"Key-ContainerArray"];
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [table setContainer:dictionary withKey:@"Key-ContainerDictionary"];
+        
+        [table synchronize];
+        NSAssert(0, @"data for data block test is not ready");
+    }
+    
+    NSMutableSet *set = [table containerWithKey:@"Key-ContainerSet"];
+    [set addObject:@"test"];
+    
+    NSMutableArray *array = [table containerWithKey:@"Key-ContainerArray"];
+    [array addObject:@"test"];
+    
+    NSMutableDictionary *dictionary = [table containerWithKey:@"Key-ContainerDictionary"];
+    [dictionary setObject:@"test" forKey:@"keyValue"];
+}
+
 @end
