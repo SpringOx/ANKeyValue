@@ -31,7 +31,8 @@ With features:
 ### Usage(用法)
 
 ``` objective-c
-    self.itemList = [[TableHelper getSetItemTable] valueWithKey:@"setItemList"];
+    // 支持容器存储
+    self.itemList = [[TableHelper getSetItemTable] containerWithKey:@"setItemList"];
     
     - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
     {
@@ -43,6 +44,7 @@ With features:
 ```
 
 ``` objective-c
+    // 支持key-value值存储
     @autoreleasepool {
         NSMutableArray *tableArr = [NSMutableArray array];
         int num = 0;
@@ -85,6 +87,7 @@ With features:
 ```
 
 ``` objective-c
+    // 支持加解密
     ANKeyValueTable *cTable = [ANKeyValueTable tableWithName:@"CryptContentTest" version:@"0.0.1" resumable:YES];
     NSString *c1 = @"Content-CryptTest";
     [cTable encryptContent:c1 withKey:@"Key-CryptTest"];
