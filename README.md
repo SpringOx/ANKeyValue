@@ -1,9 +1,9 @@
 ANKeyValue(键值存储)
 =========
 
-iOS data storage with key-value-based approach in line with technology trends, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
+iOS  advanced nsuerdefault with key-value-based approach in line with technology trends, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
 
-一个基于key-value方式的符合技术趋势的iOS数据存储实现，区别于低效的文件方式，简单的归档方式以及复杂的数据库方式，是一种灵活又快捷的对象存储方案。
+一个基于key-value方式的NSUserDefault加强版，区别于低效的文件方式，简单的归档方式以及复杂的数据库方式，是一种灵活又快捷的对象存储方案。
 
 With features:
 1, multi-service, using the memory completely isolated;
