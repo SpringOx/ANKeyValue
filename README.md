@@ -1,7 +1,7 @@
 ANKeyValue(键值存储)
 =========
 
-A advanced "nsuerdefault" with key-value-based, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
+A advanced "NSUserDefault" with key-value-based, different file inefficient way, simple and complex database archiving way, is a flexible and efficient object storage solution.
 
 一个基于key-value方式的NSUserDefault加强版，区别于低效的文件方式，简单的归档方式以及复杂的数据库方式，是一种灵活又快捷的对象存储方案。
 
