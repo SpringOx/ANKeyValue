@@ -108,11 +108,17 @@
  */
 - (void)encryptContent:(NSString *)content withKey:(id <NSCopying>)key;
 
-/*! @brief set容器
+/*! @brief 添加容器类数据
  *
  * @param key
  */
 - (void)setContainer:(id)container withKey:(id <NSCopying>)key;
+
+/*! @brief 添加资源类数据，会单独针对资源类数据做优化，springox(20150922)
+ *
+ * @param key
+ */
+- (void)setResource:(id)resource withKey:(id <NSCopying>)key;
 
 #pragma mark -
 /*! @brief value
@@ -163,6 +169,13 @@
  * @param key
  */
 - (id)containerWithKey:(id <NSCopying>)key;
+
+/*! @brief value
+ *
+ * 获取资源文件的方法，该方法返回值默认是copy操作，如果支持“NSMutableCopying”协议是mutableCopy操作
+ * @param key
+ */
+- (id)resourceWithKey:(id <NSCopying>)key;
 
 #pragma mark -
 /*! @brief 获取所有keys

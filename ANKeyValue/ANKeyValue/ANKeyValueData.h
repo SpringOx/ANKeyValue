@@ -17,6 +17,10 @@
 
 - (id)valueWithKey:(id)aKey;
 
+- (void)setDataValue:(id <NSCoding, ANKeyValue>)aValue withKey:(id <NSCopying>)aKey;
+
+- (id)dataValueWithKey:(id)aKey;
+
 - (NSArray *)allKeys;
 
 - (NSArray *)allValues;

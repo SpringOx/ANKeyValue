@@ -157,18 +157,18 @@
     if (nil == [table valueWithKey:@"Key-DataBlockTest1"]) {
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"png"];
         NSData *testData = [NSData dataWithContentsOfFile:filePath];
-        [table setValue:testData withKey:@"Key-DataBlockTest1"];
+        [table setResource:testData withKey:@"Key-DataBlockTest1"];
         
         UIImage *testImg = [UIImage imageWithData:testData];
-        [table setValue:testImg withKey:@"Key-DataBlockTest2"];
+        [table setResource:testImg withKey:@"Key-DataBlockTest2"];
         
         [table synchronize];
         NSAssert(0, @"data for data block test is not ready");
     }
 
-    NSData *data = [table valueWithKey:@"Key-DataBlockTest1"];
+    NSData *data = [table resourceWithKey:@"Key-DataBlockTest1"];
     NSAssert1([data isKindOfClass:[NSData class]], @"data block test is not passed", data);
-    UIImage *image = [table valueWithKey:@"Key-DataBlockTest2"];
+    UIImage *image = [table resourceWithKey:@"Key-DataBlockTest2"];
     NSAssert1([image isKindOfClass:[UIImage class]], @"data block test is not passed", image);
 }
 

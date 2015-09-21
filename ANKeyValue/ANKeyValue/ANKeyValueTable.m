@@ -265,6 +265,13 @@ static ANKeyValueCache *GlobalDataCache;
     }
 }
 
+- (void)setResource:(id)resource withKey:(id <NSCopying>)key
+{
+    [[self keyValueData] setDataValue:resource withKey:key];
+    
+    [self synchronize:YES];
+}
+
 #pragma mark -
 - (id)valueWithKey:(id <NSCopying>)key
 {
@@ -332,6 +339,11 @@ static ANKeyValueCache *GlobalDataCache;
         return value;
     }
     return nil;
+}
+
+- (id)resourceWithKey:(id <NSCopying>)key
+{
+    return [[self keyValueData] dataValueWithKey:key];
 }
 
 #pragma mark -

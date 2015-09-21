@@ -114,6 +114,21 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 
 - (void)setValue:(id <NSCoding, ANKeyValue>)aValue withKey:(id <NSCopying>)aKey
 {
+    [_dataLock lock];
+    [_keyValueMap setObject:aValue forKey:aKey];
+    [_dataLock unlock];
+}
+
+- (id)valueWithKey:(id)aKey
+{
+    [_dataLock lock];
+    id value = [_keyValueMap objectForKey:aKey];
+    [_dataLock unlock];
+    return value;
+}
+
+- (void)setDataValue:(id <NSCoding, ANKeyValue>)aValue withKey:(id <NSCopying>)aKey
+{
     if ([aValue respondsToSelector:@selector(shouldEncodeWithDataBlock)]) {
         if ([aValue shouldEncodeWithDataBlock]) {
             [_dataLock lock];
@@ -140,7 +155,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
     [_dataLock unlock];
 }
 
-- (id)valueWithKey:(id)aKey
+- (id)dataValueWithKey:(id)aKey
 {
     [_dataLock lock];
     id value = [_keyValueMap objectForKey:aKey];
