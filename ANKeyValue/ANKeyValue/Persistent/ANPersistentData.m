@@ -144,6 +144,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
         [self archive:self];
     }
     _archiveTimer = nil;
+    // support strong observer(just like network connection delegate), added by springox(20151004)
+    [_observers removeAllObjects];
     [_dataLock unlock];
     
     strongSelf = nil;
