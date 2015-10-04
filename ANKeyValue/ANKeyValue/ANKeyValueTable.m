@@ -86,7 +86,13 @@ static ANKeyValueCache *GlobalDataCache;
 
 + (id)userDefaultTable
 {
-    return [self tableForUser:@"UserDefault" version:@"1.0.0"];
+    static ANKeyValueTable *defTable;
+    @synchronized(self) {
+        if (nil == defTable) {
+            defTable = [self tableForUser:@"UserDefault" version:@"1.0.0"];
+        }
+    }
+    return defTable;
 }
 
 + (ANKeyValueCache *)dataCache
@@ -179,7 +185,7 @@ static ANKeyValueCache *GlobalDataCache;
 - (void)synchronize:(BOOL)atomically
 {
     if (atomically) {
-        [[self keyValueData] setNeedToArchive];
+        [[self keyValueData] setNeedToArchive:self];
     } else {
         [[self keyValueData] syncArchive];
     }

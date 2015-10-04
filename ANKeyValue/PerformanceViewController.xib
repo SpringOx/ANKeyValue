@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PerformanceViewController">
@@ -14,21 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxM-KT-7Tc">
-                    <rect key="frame" x="150" y="348" width="300" height="62"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="yvT-oJ-d5P"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <state key="normal" title="Get Value Operation">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="didPressGetOperationButtonAction:" destination="-1" eventType="touchUpInside" id="k9u-sp-xDc"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BcF-Nk-2go">
-                    <rect key="frame" x="150" y="270" width="300" height="62"/>
+                    <rect key="frame" x="150" y="278" width="300" height="62"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="vR7-XI-5wM"/>
                     </constraints>
@@ -53,15 +41,28 @@
                         <action selector="didPressSetNumOperationButtonAction:" destination="-1" eventType="touchUpInside" id="gVT-WP-F2O"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxM-KT-7Tc">
+                    <rect key="frame" x="150" y="355" width="300" height="62"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="yvT-oJ-d5P"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Get Value Operation">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="didPressGetOperationButtonAction:" destination="-1" eventType="touchUpInside" id="k9u-sp-xDc"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Cft-XX-BPE" secondAttribute="trailing" constant="60" id="6L0-5D-sj2"/>
-                <constraint firstItem="Cft-XX-BPE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="KPl-PH-oad"/>
-                <constraint firstAttribute="trailing" secondItem="oxM-KT-7Tc" secondAttribute="trailing" constant="60" id="UXN-jX-Kay"/>
-                <constraint firstItem="BcF-Nk-2go" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="VMU-Ld-7eM"/>
-                <constraint firstAttribute="trailing" secondItem="BcF-Nk-2go" secondAttribute="trailing" constant="60" id="g6J-cd-UGo"/>
-                <constraint firstItem="oxM-KT-7Tc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="mYa-1D-Ka6"/>
+                <constraint firstAttribute="trailing" secondItem="Cft-XX-BPE" secondAttribute="trailing" constant="20" id="6L0-5D-sj2"/>
+                <constraint firstItem="Cft-XX-BPE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="KPl-PH-oad"/>
+                <constraint firstAttribute="trailing" secondItem="oxM-KT-7Tc" secondAttribute="trailing" constant="20" id="UXN-jX-Kay"/>
+                <constraint firstItem="BcF-Nk-2go" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="VMU-Ld-7eM"/>
+                <constraint firstAttribute="trailing" secondItem="BcF-Nk-2go" secondAttribute="trailing" constant="20" id="g6J-cd-UGo"/>
+                <constraint firstItem="oxM-KT-7Tc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="mYa-1D-Ka6"/>
             </constraints>
             <point key="canvasLocation" x="401" y="136"/>
         </view>

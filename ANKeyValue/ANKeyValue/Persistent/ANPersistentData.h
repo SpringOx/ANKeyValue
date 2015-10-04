@@ -29,11 +29,15 @@
 
 @property (nonatomic, strong) ANPersistentStrategy *strategy;
 
+// 加强内部对sender(调用者)的内存管理，避免sender被提前释放导致的各种稳定性问题，
+// 包括sender在dealloc调用强制归档(archiveNow)也是不合适的，springox(20151004)
+@property (nonatomic, strong) NSMutableArray *observers;
+
 + (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain level:(ANPersistentLevel)level;
 
 + (id)strategy:(ANPersistentLevel)level;
 
-- (void)setNeedToArchive;
+- (void)setNeedToArchive:(id)observer;
 
 - (void)archiveNow;
 

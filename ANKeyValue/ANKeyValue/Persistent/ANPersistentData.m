@@ -65,6 +65,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
+        
+        _observers = [NSMutableArray array];
     }
     return self;
 }
@@ -84,6 +86,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
+        
+        _observers = [NSMutableArray array];
     }
     return self;
 }
@@ -98,7 +102,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     return self;
 }
 
-- (void)setNeedToArchive
+- (void)setNeedToArchive:(id)observer
 {
     [_dataLock lock];
     if ([self.strategy shouldArchive:self name:self.name]) {
@@ -106,6 +110,10 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
             NSTimeInterval timeInterval = [self.strategy timeIntervalOfArchiveTimer];
             _archiveTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(archiveTimerOperation) userInfo:nil repeats:NO];
             
+        }
+        // support strong observer(just like network connection delegate), added by springox(20151004)
+        if (![_observers containsObject:observer]) {
+            [_observers addObject:observer];
         }
     }
     [_dataLock unlock];
@@ -200,6 +208,8 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     [_archiveTimer invalidate];
     [self archiveOperation:self];
     _archiveTimer = nil;
+    // support strong observer(just like network connection delegate), added by springox(20151004)
+    [_observers removeAllObjects];
     [_dataLock unlock];
     
     strongSelf = nil;
