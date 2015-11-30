@@ -40,6 +40,15 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     return data;
 }
 
++ (void)clearData:(NSString *)domain level:(ANPersistentLevel)level
+{
+    ANPersistentStrategy *strategy = [self strategy:level];
+    if (0 < [strategy.rootDirectory length]) {
+        NSString *dirPath = [strategy localDirectoryWithRelativePath:domain];
+        [[NSFileManager defaultManager] removeItemAtPath:dirPath error:NULL];
+    }
+}
+
 + (id)strategy:(ANPersistentLevel)level
 {
     return [[ANPersistentStrategy alloc] initWithLevel:level];

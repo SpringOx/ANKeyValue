@@ -92,6 +92,8 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 - (IBAction)didPressSetStrOperationButtonAction:(id)sender {
     
+    // 使用clearResumableTable方式清空数据，springox(20151130)
+    /*
     int num = 0;
     do {
         
@@ -104,6 +106,9 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         [table clear];
         
     } while (10 > ++num);
+     */
+    
+    [ANKeyValueTable clearResumableTable];
     
     CGFloat timeInterval1 = BNRTimeBlock(^{
         [self executeSetOperation:1];

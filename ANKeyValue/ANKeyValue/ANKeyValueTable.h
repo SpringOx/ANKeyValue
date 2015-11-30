@@ -34,6 +34,12 @@
  */
 + (id)userDefaultTable;
 
+/*! @brief 清空Caches目录数据的类方法
+ 
+ * 可恢复数据会存储到Library/Caches目录，允许一次性清空，回收空间
+ */
++ (void)clearResumableTable;
+
 #pragma mark -
 /*! @brief 表的初始化方法
  *

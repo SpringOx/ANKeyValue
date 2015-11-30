@@ -35,6 +35,9 @@
 
 + (id)data:(NSString *)name version:(NSString *)version domain:(NSString *)domain level:(ANPersistentLevel)level;
 
+// 支持本地缓存数据的清理，springox(20151130)
++ (void)clearData:(NSString *)domain level:(ANPersistentLevel)level;
+
 + (id)strategy:(ANPersistentLevel)level;
 
 - (void)setNeedToArchive:(id)observer;

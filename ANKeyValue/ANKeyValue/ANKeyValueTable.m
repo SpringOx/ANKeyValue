@@ -114,6 +114,11 @@ static ANKeyValueCache *GlobalDataCache;
     return GlobalDataCache;
 }
 
++ (void)clearResumableTable
+{
+    [ANKeyValueData clearData:PERSISTENT_DOMAIN level:ANPersistentLevelResumableCaches];
+}
+
 - (ANKeyValueData *)keyValueData
 {
     if (nil != _keyValueData) {
