@@ -7,7 +7,6 @@
 //
 
 #import "ANKeyValueData.h"
-#import "ANKeyValueCache.h"
 #import "ANKeyValueStrategy.h"
 
 NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
@@ -113,7 +112,7 @@ NSString *const GlobalDataBlockArchivePathPrefix = @"$$PATH=";
 }
 
 - (void)setValue:(id <NSCoding, ANKeyValue>)aValue withKey:(id <NSCopying>)aKey
-{
+{    
     [_dataLock lock];
     [_keyValueMap setObject:aValue forKey:aKey];
     [_dataLock unlock];

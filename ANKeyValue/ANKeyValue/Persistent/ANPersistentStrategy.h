@@ -14,7 +14,7 @@ typedef NS_OPTIONS(unsigned, ANPersistentLevel) {
     ANPersistentLevelUserDocument = 2,         // 记录用户特定行为和隐私信息，同时不能够自动完整的恢复
 };
 
-@interface NSString (MD5)
+@interface NSString (MD5String)
 
 - (NSString *)MD5String;
 

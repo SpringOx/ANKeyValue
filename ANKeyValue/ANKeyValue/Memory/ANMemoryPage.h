@@ -1,16 +1,14 @@
 //
-//  ANKeyValueCache.h
-//  Araneo
+//  ANMemoryPage.h
+//  QLBaseCore
 //
-//  Created by SpringOx on 12/21/14.
-//  Copyright (c) 2014 SpringOx. All rights reserved.
+//  Created by jiachunke on 20/02/2017.
+//  Copyright © 2017 Tencent. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const kANKeyValueCacheWillEvictObjectNotification;
-
-@interface ANKeyValueCache : NSCache<NSCacheDelegate>
+@interface ANMemoryPage : NSCache
 
 - (id)object:(NSString *)name version:(NSString *)version;
 

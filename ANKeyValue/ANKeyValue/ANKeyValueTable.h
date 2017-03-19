@@ -34,11 +34,17 @@
  */
 + (id)userDefaultTable;
 
-/*! @brief 清空Caches目录数据的类方法
+/*! @brief
  
- * 可恢复数据会存储到Library/Caches目录，允许一次性清空，回收空间
+ * 清空低级别的文件，springox(20151127)
  */
-+ (void)clearResumableTable;
++ (void)clearResumableTables;
+
+/*! @brief
+ 
+ * 清空所有级别的文件，springox(20160408)
+ */
++ (void)clearAllLevelTables;
 
 #pragma mark -
 /*! @brief 表的初始化方法

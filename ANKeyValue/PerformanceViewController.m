@@ -108,7 +108,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     } while (10 > ++num);
      */
     
-    [ANKeyValueTable clearResumableTable];
+    [ANKeyValueTable clearResumableTables];
     
     CGFloat timeInterval1 = BNRTimeBlock(^{
         [self executeSetOperation:1];

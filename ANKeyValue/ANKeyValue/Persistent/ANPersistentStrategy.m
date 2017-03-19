@@ -13,7 +13,7 @@
 #define DOMAIN_STRING_DEFAULT            @"PersistentData"
 #define VERSION_DEFAULT                  @"1.0.0"
 
-@implementation NSString (MD5)
+@implementation NSString (MD5String)
 
 - (NSString *)MD5String
 {
@@ -23,7 +23,7 @@
     const char *value = [self UTF8String];
     
     unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(value, strlen(value), outputBuffer);
+    CC_MD5(value, (unsigned int)strlen(value), outputBuffer);
     
     NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){

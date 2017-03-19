@@ -7,14 +7,14 @@
 //
 
 #import "ANKeyValueTable.h"
-#import "ANKeyValueCache.h"
 #import "ANKeyValueData.h"
+#import "ANMemoryPage.h"
 #import "AESCrypt.h"
 
 #define PERSISTENT_DOMAIN     @"KeyValueStorage"
 #define AES_CRYPT_PASSWORD    @"xq$\"1#.H"
 
-static ANKeyValueCache *GlobalDataCache;
+static ANMemoryPage *GlobalDataCache;
 
 @interface ANKeyValueTable()
 {
@@ -39,22 +39,22 @@ static ANKeyValueCache *GlobalDataCache;
         version = @"";
     }
 
+    // 预先加载共享核心data，springox(20151201)
     ANPersistentLevel level = ANPersistentLevelResumableCaches;
     if (!resumable) {
         level = ANPersistentLevelApplicationSupport;
     }
     NSString *cacheName = [NSString stringWithFormat:@"L%u-%@", level, name];
-    
-    ANKeyValueCache *cache = [self dataCache];
-    ANKeyValueData *data = [cache object:cacheName version:version];
-    if (nil == data) {
-        
-        data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN level:level];
-
-        if (nil != data) {
+    ANMemoryPage *cache = [self dataCache];
+    @synchronized (self) {
+        ANKeyValueData *data = [cache object:cacheName version:version];
+        if (nil == data) {
+            data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN level:level];
             [cache setObject:data name:cacheName version:version];
         }
     }
+
+    // 创建一个表对象作为数据交互接口，springox(20151201)
     return [[ANKeyValueTable alloc] initWithName:name version:version level:level];
 }
 
@@ -68,19 +68,19 @@ static ANKeyValueCache *GlobalDataCache;
         version = @"";
     }
     
+    // 预先加载共享核心data，springox(20151201)
     ANPersistentLevel level = ANPersistentLevelUserDocument;
     NSString *cacheName = [NSString stringWithFormat:@"L%u-%@", level, name];
-    
-    ANKeyValueCache *cache = [self dataCache];
-    ANKeyValueData *data = [cache object:cacheName version:version];
-    if (nil == data) {
-        
-        data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN level:level];
-        
-        if (nil != data) {
+    ANMemoryPage *cache = [self dataCache];
+    @synchronized (self) {
+        ANKeyValueData *data = [cache object:cacheName version:version];
+        if (nil == data) {
+            data = [ANKeyValueData data:name version:version domain:PERSISTENT_DOMAIN level:level];
             [cache setObject:data name:cacheName version:version];
         }
     }
+    
+    // 创建一个表对象作为数据交互接口，springox(20151201)
     return [[ANKeyValueTable alloc] initWithName:name version:version level:level];
 }
 
@@ -95,28 +95,29 @@ static ANKeyValueCache *GlobalDataCache;
     return defTable;
 }
 
-+ (ANKeyValueCache *)dataCache
+
++ (ANMemoryPage *)dataCache
 {
     if (nil == GlobalDataCache) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            GlobalDataCache = [[ANKeyValueCache alloc] init];
-            GlobalDataCache.delegate = GlobalDataCache;
             
-            /*
-            [[NSNotificationCenter defaultCenter] addObserver:GlobalDataCache
-                                                     selector:@selector(test:)
-                                                         name:UIApplicationDidReceiveMemoryWarningNotification
-                                                       object:nil];
-             */
+            GlobalDataCache = [[ANMemoryPage alloc] init];
         });
     }
     return GlobalDataCache;
 }
 
-+ (void)clearResumableTable
++ (void)clearResumableTables
 {
-    [ANKeyValueData clearData:PERSISTENT_DOMAIN level:ANPersistentLevelResumableCaches];
+    [ANKeyValueData clearCache:PERSISTENT_DOMAIN level:ANPersistentLevelResumableCaches];
+}
+
++ (void)clearAllLevelTables
+{
+    [ANKeyValueData clearCache:PERSISTENT_DOMAIN level:ANPersistentLevelResumableCaches];
+    [ANKeyValueData clearCache:PERSISTENT_DOMAIN level:ANPersistentLevelApplicationSupport];
+    [ANKeyValueData clearCache:PERSISTENT_DOMAIN level:ANPersistentLevelUserDocument];
 }
 
 - (ANKeyValueData *)keyValueData
@@ -127,13 +128,14 @@ static ANKeyValueCache *GlobalDataCache;
         if (![_dataName isKindOfClass:[NSString class]] || 0 == [_dataName length]) {
             return nil;
         }
-        ANKeyValueCache *cache = [ANKeyValueTable dataCache];
-        
-        _keyValueData = [cache object:_dataName version:_dataVersion];
+
+        NSString *cacheName = [NSString stringWithFormat:@"L%u-%@", _dataLevel, _dataName];
+        ANMemoryPage *cache = [[self class] dataCache];
+        _keyValueData = [cache object:cacheName version:_dataVersion];
         if (nil == _keyValueData) {
             ANKeyValueData *data = [ANKeyValueData data:_dataName version:_dataVersion domain:PERSISTENT_DOMAIN level:_dataLevel];
             if (nil != data) {
-                [cache setObject:data name:_dataName version:_dataVersion];
+                [cache setObject:data name:cacheName version:_dataVersion];
                 // 在模拟器上，启用内存memory warning功能，可能会导致setObject后cache马上触发evict Object，
                 // 所以这里刻意把_keyValueData和notification延后设置，这样，即使evict Object在这里
                 // 被同步方式提前触发，_keyValueData也能因为是后面set而继续可用，不会导致_keyValueData为nil时，
@@ -192,7 +194,7 @@ static ANKeyValueCache *GlobalDataCache;
     if (atomically) {
         [[self keyValueData] setNeedToArchive:self];
     } else {
-        [[self keyValueData] syncArchive];
+        [[self keyValueData] fireArchive];
     }
 }
 

@@ -8,6 +8,8 @@
 
 #import "ANPersistentData.h"
 
+#define ArchiveTimerTimeIntervalDefault    5.f
+
 void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityKey;
 
 @interface ANPersistentData()
@@ -26,7 +28,16 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     ANPersistentStrategy *strategy = [self strategy:level];
     
     NSString *path = [strategy localPath:name version:version domain:domain];
-    ANPersistentData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    
+    ANPersistentData *data = nil;
+    @try {
+        data = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    //end modify
+    
     if (nil == data || ![data respondsToSelector:@selector(strategy)]) {
         data = [[[self class] alloc] init];
         data.createdTime = [NSDate date];
@@ -40,7 +51,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     return data;
 }
 
-+ (void)clearData:(NSString *)domain level:(ANPersistentLevel)level
++ (void)clearCache:(NSString *)domain level:(ANPersistentLevel)level
 {
     ANPersistentStrategy *strategy = [self strategy:level];
     if (0 < [strategy.rootDirectory length]) {
@@ -135,14 +146,15 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     
     [_dataLock lock];
     if (nil != _archiveTimer) {
-        [self syncArchive];
+        [self fireArchive];
     }
     [_dataLock unlock];
     
     strongSelf = nil;
 }
 
-- (void)syncArchive
+// 为了提升性能，将所有序列化操作均异步线程执行，- (void)syncArchive命名不再适合，更换下方法命名
+- (void)fireArchive
 {
     // _archiveTimer会影响self的计数，因此先自己做好保护，springox(20150318)
     __strong ANPersistentData *strongSelf = self;
@@ -150,7 +162,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     [_dataLock lock];
     [_archiveTimer invalidate];
     @autoreleasepool {
-        [self archive:self];
+        [self archiveOperation:self];
     }
     _archiveTimer = nil;
     // support strong observer(just like network connection delegate), added by springox(20151004)
@@ -192,7 +204,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
         NSLog(@"Persistent Data remove local directory %@ success\n", path);
     }
     
-    [self syncArchive];
+    [self fireArchive];
     [_dataLock unlock];
     
     strongSelf = nil;
@@ -263,20 +275,26 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (void)archive:(id)rootObject
 {
-    [_dataLock lock];
-    [self archiveWillStart];
-    _isArchiving = YES;
-    
     NSString *dataPath = [self.strategy localPath:_name version:_version domain:_domain];
-    if (nil != dataPath) {
-        NSLog(@"Persistent Data archive %@\n", dataPath);
-        [NSKeyedArchiver archiveRootObject:rootObject toFile:dataPath];
-        self.modifiedTime = [NSDate date];
+    if (nil == dataPath) {
+        return;
     }
-    
+
+    [self archiveWillStart];
+
+    [_dataLock lock];
+
+    _isArchiving = YES;
+
+    NSLog(@"Persistent Data archive %@\n", dataPath);
+    [NSKeyedArchiver archiveRootObject:rootObject toFile:dataPath];
+    self.modifiedTime = [NSDate date];
+
     _isArchiving = NO;
-    [self archiveDidFinish];
+
     [_dataLock unlock];
+
+    [self archiveDidFinish];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)not
