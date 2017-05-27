@@ -53,7 +53,7 @@ static ANMemoryPage *GlobalDataCache;
             [cache setObject:data name:cacheName version:version];
         }
     }
-
+    
     // 创建一个表对象作为数据交互接口，springox(20151201)
     return [[ANKeyValueTable alloc] initWithName:name version:version level:level];
 }
@@ -95,6 +95,22 @@ static ANMemoryPage *GlobalDataCache;
     return defTable;
 }
 
++ (id)defaultLoginTable
+{
+    // 5.5 优化了写文件性能，统一异步操作，暴露前后调用接口时文件读写有时序问题，先要求对登录表做静态化操作，
+    // 目前绝大部分table都是业务持有table对象，大大减少读文件的风险(内存已更新文件还未及时更新)，jiachunke
+    //if ( ![UIDevice isIOS7] ) {
+    //    return [ANKeyValueTable tableForUser:@"LoginUserInfo" version:@"1.0.0"];
+    //}
+    //在ios 7下，当出现内存警告时，nscache会被系统释放，同时首页收到内存警告也会释放，会导致死锁，将loginTable设置为静态变量确保不被系统释放，charli，jiachun 4.5.2 20151217
+    static id _loginTable = nil;
+    @synchronized(self) {
+        if (nil == _loginTable) {
+            _loginTable = [ANKeyValueTable tableForUser:@"LoginUserInfo" version:@"1.0.0"];
+        }
+    }
+    return _loginTable;
+}
 
 + (ANMemoryPage *)dataCache
 {
@@ -128,7 +144,7 @@ static ANMemoryPage *GlobalDataCache;
         if (![_dataName isKindOfClass:[NSString class]] || 0 == [_dataName length]) {
             return nil;
         }
-
+        
         NSString *cacheName = [NSString stringWithFormat:@"L%u-%@", _dataLevel, _dataName];
         ANMemoryPage *cache = [[self class] dataCache];
         _keyValueData = [cache object:cacheName version:_dataVersion];

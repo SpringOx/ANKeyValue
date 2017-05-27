@@ -67,7 +67,7 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // do nothing
 }
 
 - (id)init
@@ -76,16 +76,6 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     if (self) {
         
         _dataLock = [[NSRecursiveLock alloc] init];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationWillTerminate:)
-                                                     name:UIApplicationWillTerminateNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationDidEnterBackground:)
-                                                     name:UIApplicationDidEnterBackgroundNotification
-                                                   object:nil];
-        
         _observers = [NSMutableArray array];
     }
     return self;
@@ -97,16 +87,6 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     if (self) {
         
         _dataLock = [[NSRecursiveLock alloc] init];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationWillTerminate:)
-                                                     name:UIApplicationWillTerminateNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationDidEnterBackground:)
-                                                     name:UIApplicationDidEnterBackgroundNotification
-                                                   object:nil];
-        
         _observers = [NSMutableArray array];
     }
     return self;
@@ -260,10 +240,11 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
         dispatch_once(&onceToken, ^{
             const char *archiveQueueName = NULL;
             archiveQueueName = [@"GlobalArchiveQueueName" UTF8String];
-            // 这里需要特别说明虽然全局使用一个并行的任务队列，同时也认为有频控的持久化实现
-            // 对于并发任务的要求并不高，即使存在多个持久化目标，单个子线程串行执行也能满足需要，springox(20150105)
-            //archiveQueue = dispatch_queue_create(archiveQueueName, NULL);
-            archiveQueue = dispatch_queue_create(archiveQueueName, DISPATCH_QUEUE_CONCURRENT);
+            // 遇到一些系统内的内存管理crash(objc_retain + 16)，简化这里的并发特性，改为串行队列
+            // 这里需要特别说明虽然全局使用一个并行的任务队列，同时也认为有频控的持久化实现对于并发任务的要求并不高，
+            // 即使存在多个持久化目标，单个子线程串行执行也能满足需要，springox(20150105)
+            archiveQueue = dispatch_queue_create(archiveQueueName, NULL);
+            //archiveQueue = dispatch_queue_create(archiveQueueName, DISPATCH_QUEUE_CONCURRENT);
 
             void *key = GlobalArchiveQueueIdentityKey;
             void *nonNullValue = GlobalArchiveQueueIdentityKey;
@@ -295,16 +276,6 @@ void *const GlobalArchiveQueueIdentityKey = (void *)&GlobalArchiveQueueIdentityK
     [_dataLock unlock];
 
     [self archiveDidFinish];
-}
-
-- (void)applicationWillTerminate:(NSNotification *)not
-{
-    [self archiveNow];
-}
-
-- (void)applicationDidEnterBackground:(NSNotification *)not
-{
-    [self archiveNow];
 }
 
 @end
