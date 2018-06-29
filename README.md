@@ -1,35 +1,37 @@
 ANKeyValue(键值存储)
 =========
 
-A advanced "NSUserDefault" with key-value-based, a flexible and efficient object storage solution.
+###### A advanced "NSUserDefault" with key-value-based, a flexible and efficient object storage solution.
 
-一个基于key-value方式的NSUserDefault加强版，一种灵活又快捷的对象存储方案。
+###### 一个基于key-value方式的NSUserDefault加强版，一种灵活又快捷的对象存储方案。
 
 With features:
-1, multi-service, using the memory completely isolated;
 
-2, support automatic serialization and de-serialization simplifies persistence;
+1. multi-service, using the memory completely isolated;
 
-3, long-lasting semi-automatic operation, refresh, Special Scene enforced;
+2. support automatic serialization and de-serialization simplifies persistence;
 
-4, supports concurrent execution of task execution queue;
+3. long-lasting semi-automatic operation, refresh, Special Scene enforced;
 
-6, support for policy control, multi-level storage;
+4. supports concurrent execution of task execution queue;
 
-7, support encryption / decryption operations;
+5. support for policy control, multi-level storage;
+
+6. support encryption / decryption operations;
 
 具备特性：
-1、支持多业务，使用到存储完全隔离；
 
-2、支持自动序列化和反序列化，简化持久化；
+1. 支持多业务，使用到存储完全隔离；
 
-3、持久化操作半自动，定时刷新，特殊场景强制执行；
+2. 支持自动序列化和反序列化，简化持久化；
 
-4、支持任务执行队列化并发执行；
+3. 持久化操作半自动，定时刷新，特殊场景强制执行；
 
-6、支持策略控制，多级存储；
+4. 支持任务执行队列化并发执行；
 
-7、支持加密/解密操作；
+5. 支持策略控制，多级存储；
+
+6. 支持加密/解密操作；
 
 
 ![Screenshot](https://github.com/SpringOx/ANKeyValue/blob/master/ANKeyValue-1.png)
@@ -107,7 +109,7 @@ With features:
     NSAssert([c1 isEqualToString:c2], @"crypt test is not passed");
 ```
 
-## Contact(联系)
+### Contact(联系)
 
 - [https://github.com/SpringOx](https://github.com/SpringOx)(GitHub)
 - [jiachunke@gmail.com](jiachunke@gmail.com)(Email)
